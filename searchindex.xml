@@ -23,13 +23,7 @@ Firefox Browser
 H2O
 Xn + Yn = Zn
 按 CTRL+ALT+Delete 组合键结束会话。
-大多数蝾螈在夜间活动，捕食昆虫、蠕虫和其他小动物。</content></entry><entry><title>富文本内容测试</title><url>/post/rich-content/</url><categories/><tags><tag>shortcodes</tag><tag>privacy</tag></tags><content type="html"> Hugo 上有几个内置短码
-，用于丰富内容，以及隐私配置
-还有一组简单的短代码，支持各种社交媒体嵌入的静态和非 JS 版本。
-YouTube 增强隐私短码 {{/&lt; youtube ZJthWmvUzzc >/}}
-Twitter 短码 {{/&lt; twitter_simple 1085870671291310081 >/}}
-Vimeo 短码 {{/&lt; vimeo_simple 48912912 >/}}
-哔哩哔哩短码</content></entry><entry><title>图像占位符显示</title><url>/post/placeholder-text/</url><categories/><tags><tag>markdown</tag><tag>text</tag></tags><content type="html"> 范德格拉夫原理（Van de Graaf Canon）重构了曾经用于书籍设计中将页面划分为舒适比例的方法。这一原理也被称为“秘密原理”，用于许多中世纪的手稿和古板书中。在范德格拉夫原理中，文本区域和页面的长款具有相同的比例，并且文本区域的高度等于页面宽度，通过划分页面得到九分之一的订口边距和九分之二的切口边距，以及与页面长宽相同的比例的文本区域。
+大多数蝾螈在夜间活动，捕食昆虫、蠕虫和其他小动物。</content></entry><entry><title>图像占位符显示</title><url>/post/placeholder-text/</url><categories/><tags><tag>markdown</tag><tag>text</tag></tags><content type="html"> 范德格拉夫原理（Van de Graaf Canon）重构了曾经用于书籍设计中将页面划分为舒适比例的方法。这一原理也被称为“秘密原理”，用于许多中世纪的手稿和古板书中。在范德格拉夫原理中，文本区域和页面的长款具有相同的比例，并且文本区域的高度等于页面宽度，通过划分页面得到九分之一的订口边距和九分之二的切口边距，以及与页面长宽相同的比例的文本区域。
 Vagus 示例 The Van de Graaf Canon
 总结 当然设计中的黄金比例是为人所熟知的，黄金分割的公式为a:b=b:(a+b)。这是指较小的两个矩形与较大的两个矩形以相同的组合方式相关联。黄金分割比例为1:1.618。</content></entry><entry><title>数据公式设置显示</title><url>/post/math-typesetting/</url><categories/><tags/><content type="html"> Hugo 项目中的数学表示法可以通过使用第三方 JavaScript 库来实现。
 在这个例子中，我们将使用 MathJax
@@ -99,4 +93,4 @@ $$ f(x) = \sqrt{1+x}, \quad x \ge -1 f(x) \sim x^2, \quad x\to\infty $$</content
 .emoji { font-family: Apple Color Emoji,Segoe UI Emoji,NotoColorEmoji,Segoe UI Symbol,Android Emoji,EmojiSymbols; }</content></entry><entry><title>关于我</title><url>/about.html</url><categories/><tags/><content type="html"> 91 年生人，天蝎男，坐标武汉。
 2014 年本科毕业，专业计算机科学与技术，成为码仔算是专业对口。
 2015 至今 都在写 php，2021 年结识 go 。
-兴趣使然的码仔，记录自己的生活。</content></entry></search>
+兴趣使然的码仔，记录平凡的生活。</content></entry></search>
