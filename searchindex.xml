@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>laravel 如何自动发现包</title><url>/post/php-composer-auto-find/</url><categories><category>php</category></categories><tags><tag>php</tag><tag>composer</tag></tags><content type="html">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>mysql8 好用特性总结</title><url>/post/mysql8-%E7%89%B9%E6%80%A7/</url><categories><category>数据库</category></categories><tags><tag>mysql</tag></tags><content type="html"> 引入 MySQL 8 出来好几年了，但是没去了解，一直都在用 5.7 ，上次本杰问我知不知道「窗口函数」，直接老脸一红。
+最近看了下相关资料，总结三个 MySQL 8 好用的新特性。
+在某个平行时空，H5 尾牙的中奖信息如下：
+隐藏索引 MySQL 8 可以临时隐藏索引。
+隐藏索引可以在不改变实际索引结构的情况下，测试删除索引对于查询性能的影响，对于大表的优化十分有用，因为大表删除并重建索引的开销很大。
+首先给上表的 money 字段加索引，然后隐藏索引，展示索引，结果如下：
+窗口函数 我们要根据上表，统计如下信息，并展示在一张表里：
+中奖总额 各岗位线中奖总额 每个人中奖金额，占岗位线金额的百分比 每个人中奖金额，占总金额百分比 在 MySQL 8 以前，我可能会选择用临时表完成此查询：
+查总金额 根据岗位线聚合，查中奖总额 通过关联临时表，完成查询 MySQL 8 提供了 窗口函数，可以很方便的完成查询：
+由上可知，窗口函数的作用，也是对数据进行分组。和group by不同的是，group by会把分组的结果聚合成一条记录，而窗口函数是将结果置于 每一条 数据记录中。 公用表表达式 公用表表达式是一个命名的临时结果集。它存在于单个查询语句中，主要作用就是可以 代替子查询，并且可以被后面的查询多次引用。
+依据语法结构和执行方式的不同，可以分为 2 类：普通公用表表达式 和 递归公用表表达式。 普通公用表表达式 这里还有一张表，记录了历年的中奖记录，如下：
+现在要查询「2020年和2021年都中奖的人」，可以用子查询查出结果，如下：
+在 MySQL 8 中可以通过普通公用表表达式查询：
+递归公用表表达式 这里有几只数码宝贝的进化链，
+滚球兽->亚古兽->暴龙兽 独角兽->加布兽->加鲁鲁兽 年糕兽->甲虫兽->比多兽 存表如下：
+现在要查成熟期的数码宝贝：</content></entry><entry><title>https 加密传输</title><url>/post/https-%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93/</url><categories><category>网络协议</category></categories><tags><tag>https</tag></tags><content type="html"> 为什么需要加密 http 的内容是明文传输，明文数据会经过中间代理服务器、路由器、通信服务运营商等多个物理节点，如果信息在传输过程中被劫持，传输的内容就完全暴露了。劫持者还可以篡改传输的信息且不被双方察觉，这就是 中间人攻击。
+加密方式 常见的两种加密方式：
+对称加密： 只有一个密钥，加密和解密都使用此密钥 非对称加密： 有一对公私钥，公钥加密的信息，只有私钥才能解密，私钥加密的信息，只有公钥才能解密 两者对比： 对称加密效率更高；非对称加密的安全性更高。
+HTTPS 如何加密传输 https 是建构在 SSL/TLS 之上的 http 协议，它的数据都是加密传输，它是怎么实现的？为什么要这样实现？ 只用对称加密 如果只使用对称加密，那么客户端和服务端需要约定好密钥，加密解密都使用此密钥。但是产生的问题是：此密钥怎么让传输的双方知晓，同时不被别人知道。一旦密钥在传输过程中被劫持，数据无异于裸奔。
+显然，只使用对称加密是不安全的。
+只使用非对称加密 服务端生成一对公私钥。
+客户端从服务端拿到公钥，用公钥加密数据传给服务端，服务端用私钥解密得到明文数据。
+服务端处理完请求后，将返回数据用私钥加密传给客户端，客户端拿到数据用公钥解密。
+这个方案也是不成熟的：
+公钥明文在网络传输，如果被坏人劫持，那么服务端传输给客户端的数据可以被解密。 坏人也可以伪造客户端数据，公钥加密后传给服务端。 非对称加密比较耗时，加密的数据越大，耗时越久。 对称+非对称 结合上面 2 次失败的尝试，我们可以获取如下经验：
+考虑到效率，传输数据用 对称加密 对称加密 的 密钥 不能暴露，使用 非对称加密 的方式保护它 流程如下：
+这个方案其实还是有漏洞，会被 中间人攻击：
+客户端和服务器在无感知的情况下继续通信，而中间人在暗中观察。这个漏洞的症结在于：客户端无法确认自己接收到的公钥来自于服务端。
+那么怎么保证公钥的安全性？答案是 CA机构 颁发的 证书(Certificate) 。 HTTPS 加密 网站在使用 https 前，需要向 CA机构 申领一份 数字证书，数字证书里含有如下信息：
+证书里面有服务端的公钥，只要保证证书的正确性，公钥就是正确的。
+证书生成： 证书检测： 注意：浏览器和操作系统会预装各种 根证书，然后通过 数字证书链 层层解密，拿到 CA 机构 的公钥，所以能够解密 CA 机构 用私钥加密的 数字签名。
+下面就是 HTTPS 加密流程（为了简单，做了适当删减），在 TCP 三次握手之后，开始 SSL 握手： 一些问题 ssl 握手 这么耗时， https 的每次请求都得走这个握手流程吗？ 客户端和服务端完成 ssl 握手 之后，服务端通过一个 只有自己知道的密钥 ticket key 将本次的 会话状态 加密后生成一个 ticket ，然后发送给客户端，客户端保存此 ticket 。
+下次再建立 ssl 连接 时，可以将 ticket 发送给服务端，服务端解开 ticket 后，拿出里面的 会话状态，会话状态里包含了秘钥，然后开始用此秘钥加解密。
+https 是加密传输的，那 Fiddler 等一些抓包工具是怎么抓 https 包 的？ 通常 HTTPS 抓包工具的使用方法是会生成一个证书，用户需要手动设置代理，把代理证书安装到客户端中，然后客户端发起的所有请求通过该证书完成与抓包工具的交互，然后抓包工具再转发请求到服务器，最后把服务器返回的结果在控制台输出后再返回客户端。
+需要注意的是： HTTPS 可以防止用户在不知情的情况下通信链路被监听，对于主动授信的抓包操作是不提供防护的，因为这个场景用户已经对风险知情。
+还有什么提高安全性的操作？
+在 https 传输之前就对参数和值进行加密，可以增加爬虫成本。比如知乎的登录。 做好客户端的防反编译加固，防止本地算法被破解。 服务器的加密协议支持列表上去掉一些旧版本的 SSL/TLS协议 ，防止 HTTPS协议降级攻击。 根证书是 CA 机构 公钥安全的保障，根证书预装在操作系统中，所以不要安装盗版系统，同时也不要安装来不不明的证书。 免费证书安全吗？
+因为 数字证书链 的存在，免费是证书也是有靠谱的 CA 机构 背书，安全性 理论上 没问题。
+但是，因为免费 SSL证书 申请容易，审核宽松，很多赌博、钓鱼、欺诈网站都有使用。
+同时，免费的 SSL证书 随时可能被停用。
+所以，这钱还是不能省。 参考 极客时间《趣谈网络协议15讲》- 刘超 HTTPS 协议降级攻击
+数字证书链</content></entry><entry><title>php 执行时间</title><url>/post/php-exec-time/</url><categories><category>php</category></categories><tags><tag>php</tag></tags><content type="html">
+引入 接口一般都有「超时时间」。在LNMP环境中，打开nginx.conf，php.ini，php-fpm.conf，发现里面一堆和时间相关的配置项，哪些会影响到超时呢？实践出真知，决定对这些配置项做一些简单测试。
+准备工作：
+php:7.4-fpm nginx:1.21.1 起 2 个容器后，对配置项稍微做了一点修改，使之满足接下来的测试。 测试过程 测试一 我们知道php.ini文件有个控制脚本最大执行时间的配置：
+max_execution_time = 30 index.php：
+sleep(20); echo 1; 用浏览器访问，大约执行了 10s 的时候，请求502 Bad Gateway。php.ini文件明明设置了 30s，为什么还是会超时？
+查看php-fpm日志：
+以上信息告诉我们：
+一个worker进程在执行时间超过 10s 后，收到一个signal 15被终止 fork了一个新的worker进程，进程id为 9 看来php-fpm.conf里也有个配置项影响着超时时间：
+这个配置是为了防止某些情况下脚本不能终止，而采取的一个粗暴手段：直接kill掉进程，再fork一个新的。
+所以，php-fpm.conf的request_terminate_timeout配置也影响着脚本的执行时间。 测试二 设置php-fpm.conf：
+request_terminate_timeout = 30 设置php.ini：
+max_execution_time = 1 index.php：
+sleep(10); echo 1; 再次从浏览器请求index.php，心理预期是在 1s 的时候请求会超时，结果却请求成功。
+为什么max_execution_time没有起到控制的作用？查阅官方文档有了答案：
+「最大执行时间不会影响系统调用和系统操作」，也就是说 sleep()，system() 流操作，数据库操作 等，所耗费的时间不包含其中。以前给运营同事导数据时，有时担心sql语句执行太久而超时，会在接口开头搞一个set_time_limit(0)，现在看来应该没啥用。
+再次调整index.php，不再用sleep：
+timeConsumingTask(); //耗时任务 echo 1; 执行后php返回致命错误，查看php错误日志：
+证明超时时间确实受php.ini的max_execution_time控制。
+同时，看文档的时候还发现一个细节：
+测试三 我们使用的web服务器一般是nginx，所以超时时间也受nginx影响。nginx有很多关于时间的配置项，这里只测试一个和php脚本执行时间相关的参数：fastcgi_read_timeout ，这个配置项指定nginx接受fastcgi响应的超时时间。
+验证如下：
+设置php-fpm.conf：
+request_terminate_timeout = 30 设置php.ini：
+max_execution_time = 30 设置nginx.conf：
+location ~ \.php$ { fastcgi_read_timeout 1; //设置 1s ... } index.php：
+sleep(10); echo 1; 在浏览器上请求后，返回：504 Gateway Time-out，nginx错误日志：
+测试四 php-fpm模式的高并发场景下，worker进程不够用，会导致其他请求挂起，挂起的时间也和fastcgi_read_timeout有关。当超过这个时间，也会导致请求超时。
+设置php-fpm.conf：
+; 设置 worker 进程恒为 1 pm = static pm.max_children = 1 request_terminate_timeout = 30 index.php：
+sleep(20); echo 1; ab测试：
+ab -c 4 -n 16 http://127.0.0.1:80/index.php 看nginx的访问日志，有大量的超时请求：
+感悟 每个环节都有自己的超时时间配置，比如客户端和nginx，proxy转发模块，nginx和php-fpm，数据库连接等，了解相关的配置项才能让我们在处理问题时精准定位。 多阅读官方文档，会发现一些忽视的细节。 参考 set_time_limit
+fastcgi_read_timeout
+nginx超时时间</content></entry><entry><title>laravel 如何自动发现包</title><url>/post/php-composer-auto-find/</url><categories><category>php</category></categories><tags><tag>php</tag><tag>composer</tag></tags><content type="html">
 引入 laravel 在 5.5 版本以前，服务提供者通过配置文件config/app.php手动注册：
 'providers' => [ Intervention\Image\ImageServiceProvider::class, ], laravel >= 5.5已增加包自动发现，这是如何做到的？基于laravel 8.5源码看看。 composer 事件 composer 定义了一系列事件，在特定条件触发，执行一些脚本。更多事件信息，👉传送门
 laravel 原始composer.json文件摘录如下：
