@@ -1,96 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>Markdown语法手册</title><url>/post/markdown-syntax/</url><categories><category>themes</category><category>syntax</category></categories><tags><tag>markdown</tag><tag>css</tag><tag>html</tag></tags><content type="html"> 本文提供了一个可以在 Hugo 内容文件中使用的基本Markdown语法示例，还展示了基本 HTML 元素在 Hugo 主题中是否使用 CSS 装饰。
-标题 下面的 HTML 代码&lt;h1>—&lt;h6> 元素表示六个级别的节标题。 &lt;h1>是最高的节级别，&lt;h6>是最低的节级别。
-H1 H2 H3 H4 H5 H6 段落 生活是什么？生活是柴米油盐的平淡；是行色匆匆早出晚归的奔波；生活是错的时间遇到对的人的遗憾；是爱的付出与回报；生活是看不同的风景，遇到不同的人；是行至水穷尽，坐看云起时的峰回路转；生活是灵魂经历伤痛后的微笑怒放；是挫折坎坷被晾晒后的坚强；生活是酸甜苦辣被岁月沉淀后的馨香；是经历风霜雪雨洗礼后的懂得；生活是走遍千山万水后，回眸一笑的洒脱。
-有些事，猝不及防，不管你在不在乎；有些人，并非所想，不管你明不明白；有些路，必须得走，不管你愿不愿意。不怕事，不惹事，不避事，做好自己，用真心面对一切；少埋怨，少指责，少发火，学会沉静，用微笑考量一切；多体察，多包容，多思索，尽心尽力，虽缺憾但无悔。像蒲公英一样美丽，虽轻盈，但并不卑微，它有自己的生命，也有自己的世界！
-引用 blockquote 元素表示从另一个来源引用的内容，可选的引用必须在 footer 或 cite元素内，也可选的内嵌更改，如注释和缩写。
-引用没有归属 读懂自我，带着简单的心情，看复杂的人生，走坎坷的路！
-注意： 可以在块引用中使用 Markdown 语法。
-表格 表不是Markdown核心规范的一部分，但是Hugo支持开箱即用。
-Name Age Bob 27 Alice 23 表格内使用Markdown语法 Italics Bold Code italics bold code 图像 ![图像描述](图像地址) 示例 常规用法 SVG图像 Google Chrome
-Firefox Browser
-小图标 点击图像可以打开图像浏览器，快试试吧。
-代码块 带有引号的代码块 &lt;!doctype html> &lt;html lang="en"> &lt;head> &lt;meta charset="utf-8"> &lt;title>Example HTML5 Document&lt;/title> &lt;/head> &lt;body> &lt;p>Test&lt;/p> &lt;/body> &lt;/html> 用四个空格缩进的代码块 &lt;!doctype html>
-&lt;html lang="en">
-&lt;head>
-&lt;meta charset="utf-8">
-&lt;title>Example HTML5 Document&lt;/title>
-&lt;/head>
-&lt;body>
-&lt;p>Test&lt;/p>
-&lt;/body>
-&lt;/html>
-代码块引用Hugo的内部高亮短代码 &lt;!doctype html> &lt;html lang="en"> &lt;head> &lt;meta charset="utf-8"> &lt;title>Example HTML5 Document&lt;/title> &lt;/head> &lt;body> &lt;p>Test&lt;/p> &lt;/body> &lt;/html> 列表类型 有序列表 First item Second item Third item 无序列表 List item Another item And another item 嵌套列表 Fruit Apple Orange Banana Dairy Milk Cheese 其他元素 — abbr, sub, sup, kbd, mark GIF 是位图图像格式。
-H2O
-Xn + Yn = Zn
-按 CTRL+ALT+Delete 组合键结束会话。
-大多数蝾螈在夜间活动，捕食昆虫、蠕虫和其他小动物。</content></entry><entry><title>图像占位符显示</title><url>/post/placeholder-text/</url><categories/><tags><tag>markdown</tag><tag>text</tag></tags><content type="html"> 范德格拉夫原理（Van de Graaf Canon）重构了曾经用于书籍设计中将页面划分为舒适比例的方法。这一原理也被称为“秘密原理”，用于许多中世纪的手稿和古板书中。在范德格拉夫原理中，文本区域和页面的长款具有相同的比例，并且文本区域的高度等于页面宽度，通过划分页面得到九分之一的订口边距和九分之二的切口边距，以及与页面长宽相同的比例的文本区域。
-Vagus 示例 The Van de Graaf Canon
-总结 当然设计中的黄金比例是为人所熟知的，黄金分割的公式为a:b=b:(a+b)。这是指较小的两个矩形与较大的两个矩形以相同的组合方式相关联。黄金分割比例为1:1.618。</content></entry><entry><title>数据公式设置显示</title><url>/post/math-typesetting/</url><categories/><tags/><content type="html"> Hugo 项目中的数学表示法可以通过使用第三方 JavaScript 库来实现。
-在这个例子中，我们将使用 MathJax
-创建一个文件 /content/en[zh-CN]/math.md
-可以全局启用MathJax，请在项目配置中将参数math设置为true
-或是在每页基础上启用MathJax，在内容文件中包括参数math: true
-注意： 使用支持的TeX功能
-的联机参考资料
-例子 重复的分数 $$ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} \equiv 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } } $$
-总和记号 $$ \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) $$
-几何级数之和 我把接下来的两个例子分成了几行，这样它在手机上表现得更好。这就是为什么它们包含 \displaystyle。
-$$ \displaystyle\sum_{i=1}^{k+1}i $$
-$$ \displaystyle= \left(\sum_{i=1}^{k}i\right) +(k+1) $$
-$$ \displaystyle= \frac{k(k+1)}{2}+k+1 $$
-$$ \displaystyle= \frac{k(k+1)+2(k+1)}{2} $$
-$$ \displaystyle= \frac{(k+1)(k+2)}{2} $$
-$$ \displaystyle= \frac{(k+1)((k+1)+1)}{2} $$
-乘记号 $$ \displaystyle 1 + \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots = \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, \displaystyle\text{ for }\lvert q\rvert &lt; 1. $$
-随文数式 这是一些线性数学: $$ k_{n+1} = n^2 + k_n^2 - k_{n-1} $$ ， 然后是更多的文本。
-希腊字母 $$ \Gamma\ \Delta\ \Theta\ \Lambda\ \Xi\ \Pi\ \Sigma\ \Upsilon\ \Phi\ \Psi\ \Omega \alpha\ \beta\ \gamma\ \delta\ \epsilon\ \zeta\ \eta\ \theta\ \iota\ \kappa\ \lambda\ \mu\ \nu\ \xi \ \omicron\ \pi\ \rho\ \sigma\ \tau\ \upsilon\ \phi\ \chi\ \psi\ \omega\ \varepsilon\ \vartheta\ \varpi\ \varrho\ \varsigma\ \varphi $$
-箭头 $$ \gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow $$
-$$ \Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\ \mapsto\ \hookleftarrow \leftharpoonup\ \leftharpoondown\ \rightleftharpoons\ \longleftarrow\ \Longleftarrow\ \longrightarrow $$
-$$ \Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\ \hookrightarrow\ \rightharpoonup $$
-$$ \rightharpoondown\ \leadsto\ \nearrow\ \searrow\ \swarrow\ \nwarrow $$
-符号 $$ \surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\ \bigtriangleup $$
-$$ \bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\ \triangleright\ \angle\ \infty\ \prime\ \triangle $$
-微积分学 $$ \int u \frac{dv}{dx},dx=uv-\int \frac{du}{dx}v,dx $$
-$$ f(x) = \int_{-\infty}^\infty \hat f(\xi),e^{2 \pi i \xi x} $$
-$$ \oint \vec{F} \cdot d\vec{s}=0 $$
-洛伦茨方程 $$ \begin{aligned} \dot{x} &amp; = \sigma(y-x) \ \dot{y} &amp; = \rho x - y - xz \ \dot{z} &amp; = -\beta z + xy \end{aligned} $$
-交叉乘积 这在KaTeX中是可行的，但在这种环境中馏分的分离不是很好。
-$$ \mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \ \frac{\partial X}{\partial u} &amp; \frac{\partial Y}{\partial u} &amp; 0 \ \frac{\partial X}{\partial v} &amp; \frac{\partial Y}{\partial v} &amp; 0 \end{vmatrix} $$
-这里有一个解决方案:使用“mfrac”类(在MathJax情况下没有区别)的额外类使分数更小:
-$$ \mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \ \frac{\partial X}{\partial u} &amp; \frac{\partial Y}{\partial u} &amp; 0 \ \frac{\partial X}{\partial v} &amp; \frac{\partial Y}{\partial v} &amp; 0 \end{vmatrix} $$
-强调 $$ \hat{x}\ \vec{x}\ \ddot{x} $$
-有弹性的括号 $$ \left(\frac{x^2}{y^3}\right) $$
-评估范围 $$ \left.\frac{x^3}{3}\right|_0^1 $$
-诊断标准 $$ f(n) = \begin{cases} \frac{n}{2}, &amp; \text{if } n\text{ is even} \ 3n+1, &amp; \text{if } n\text{ is odd} \end{cases} $$
-麦克斯韦方程组 $$ \begin{aligned} \nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}} \ \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \ \nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \ \nabla \cdot \vec{\mathbf{B}} &amp; = 0 \end{aligned} $$
-这些方程式很狭窄。我们可以使用(例如)添加垂直间距 [1em] 在每个换行符(\)之后。正如你在这里看到的：
-$$ \begin{aligned} \nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}} \[1em] \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \[0.5em] \nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \[1em] \nabla \cdot \vec{\mathbf{B}} &amp; = 0 \end{aligned} $$
-统计学 固定词组：
-$$ \frac{n!}{k!(n-k)!} = {^n}C_k {n \choose k} $$
-分数在分数 $$ \frac{\frac{1}{x}+\frac{1}{y}}{y-z} $$
-ｎ次方根 $$ \sqrt[n]{1+x+x^2+x^3+\ldots} $$
-矩阵 $$ \begin{pmatrix} a_{11} &amp; a_{12} &amp; a_{13}\ a_{21} &amp; a_{22} &amp; a_{23}\ a_{31} &amp; a_{32} &amp; a_{33} \end{pmatrix} \begin{bmatrix} 0 &amp; \cdots &amp; 0 \ \vdots &amp; \ddots &amp; \vdots \ 0 &amp; \cdots &amp; 0 \end{bmatrix} $$
-标点符号 $$ f(x) = \sqrt{1+x} \quad (x \ge -1) f(x) \sim x^2 \quad (x\to\infty) $$
-现在用标点符号:
-$$ f(x) = \sqrt{1+x}, \quad x \ge -1 f(x) \sim x^2, \quad x\to\infty $$</content></entry><entry><title>支持Emoji表情符号</title><url>/post/emoji-support/</url><categories/><tags><tag>emoji</tag></tags><content type="html"> Emoji 表情符号可以通过多种方式在 Hugo 项目中启用。
-使用 Emoji 表情符号可以在模板中可以直接调用 emojify
-函数或是通过 内联短代码
-来实现。
-如果要全局启用 Emoji 表情符号，请在网站配置
-文件中将 enableEmoji 参数值设置为 true，然后可以直接在内容文件中输入表情符号简写代码，参考如下：
-猴子表情 🙈 :see_no_evil:
-🙉 :hear_no_evil:
-🙊 :speak_no_evil:
-数字符号 1️⃣ :one:
-2️⃣ :two:
-3️⃣ :three:
-建筑物 🏡 :house_with_garden:
-🏣 :post_office:
-🏥 :hospital:
-更多的 Emoji 表情符号代码可参考Emoji 配对目录
-。
-注意: 以上步骤在 Hugo 中启用 Unicode 标准表情符号和序列，但是这些符号的呈现取决于浏览器和平台，要设置表情符号的样式，您可以使用第三方表情符号字体或字体。例如：
-.emoji { font-family: Apple Color Emoji,Segoe UI Emoji,NotoColorEmoji,Segoe UI Symbol,Android Emoji,EmojiSymbols; }</content></entry><entry><title>关于我</title><url>/about.html</url><categories/><tags/><content type="html"> 91 年生人，天蝎男，坐标武汉。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>如何「自动」捕获异常处理</title><url>/post/php-exception/</url><categories><category>php</category></categories><tags><tag>php</tag></tags><content type="html">
+引入 大家都用过 try/catch ，它可以使代码更健壮，捕获错误后也可以触发一些上报机制，比如记日志，邮件提醒等。同时还能带来一些便利，比如使用 laravel 「事务处理」的时候，不用对每次的执行结果进行判断，直接在 catch 中回滚。
+先看一段 PHP 原生代码：
+$num = 0; try { echo 1 / $num; //除数为0 } catch (Exception $e) { echo 2; } 执行后发现，并没有进入到 catch 块，而是显示了错误信息： Warning: Division by zero in xxx 。
+但是这段代码在大部分「框架」中都能进入到 catch 块，正常输出 2 。怎么做到的？ 错误类型 关于 PHP 的错误类型和相关说明，官方文档
+有很详细的说明，主要报以下几种错：
+Fatal Error ：致命错误；后面脚本终止运行；比如调用的函数不存在 Parse Error ：语法错误；后面脚本终止运行；比如少个分号 Warning Error ：警告错误；脚本不终止运行；比如除数为 0 Notice Error ：通知错误；脚本不终止运行；比如打印一个未定义的变量。 Notice Error 程度比 Warning Error 低 自动捕获异常原理 三个函数 实现自动捕获异常，主要是使用了 3 个关键的函数：
+set_error_handler()
+此函数可以用你自定义的方式来处理运行中的错误。当程序出现 部分类型 错误时，会 自动 调用你设置的方法：
+&lt;?php set_error_handler(function(){ echo "捕获"; }); $num = 0; echo 1 / $num; //执行后,输出"捕获" 注意： set_error_handler 函数只能捕获系统产生的一些 Warning 、 Notice 级别的错误，对于其他类型是无能为力的。
+trigger_error 函数 ：用户主动产生一个用户级别的 error/warning/notice 信息，这也能被捕获到：
+&lt;?php set_error_handler(function(){ echo "捕获"; }); trigger_error("异常",E_USER_ERROR); //执行后,输出"捕获" 可以用 set_error_handler 注册多个错误处理函数，但是后注册的会 覆盖 前一个：
+&lt;?php set_error_handler(function(){ echo "捕获"; }); set_error_handler(function(){ echo "捕获2"; }); $num = 0; echo 1 / $num; //执行后,输出"捕获2" register_shutdown_function()
+注册一个会在 PHP 中止时执行的函数。多次调用 register_shutdown_function() ，这些被注册的回调会按照他们**「注册时的顺序被依次调用」：**
+&lt;?php register_shutdown_function(function(){ echo "结束1"; }); register_shutdown_function(function(){ echo "结束2"; }); echo '开始';//执行后,输出"开始结束1结束2" set_exception_handler()
+设置默认的异常处理程序，用于没有用 try/catch 块来捕获的异常。
+&lt;?php set_exception_handler(function(){ echo '捕获'; }); throw new Exception("异常"); //抛出异常,没有手动捕获. //执行后,输出"捕获" 也可以注册多个，后注册的会 覆盖 前一个：
+&lt;?php set_exception_handler(function(){ echo '捕获1'; }); set_exception_handler(function(){ echo '捕获2'; }); throw new Exception("异常");//执行后,输出"捕获2" 框架实现 了解了上述三个函数的作用，看看 laravel 是怎么联合使用上述函数，达到「自动捕获异常」目的。
+一开始就在 app.php 中绑定了具体的异常处理类：
+&lt;?php $app->singleton( Illuminate\Contracts\Debug\ExceptionHandler::class, App\Exceptions\Handler::class //具体的异常处理类 ); 接着，在 bootstrap 阶段的 Illuminate\Foundation\Bootstrap\HandleExceptions 部分中设置了系统异常处理行为并注册了全局的异常处理器：
+&lt;?php class HandleExceptions { public function bootstrap(Application $app) { $this->app = $app; error_reporting(-1);//报告所有错误 //自定义错误处理函数，当遇到 Warning 、 Notice 级别的错误,自动调用 handleError set_error_handler([$this, 'handleError']); //当有未捕获的错误时,自动调用 handleException set_exception_handler([$this, 'handleException']); //当程序终止的时候,自动调用 handleShutdown register_shutdown_function([$this, 'handleShutdown']); } } 当遇到 Warning， Notice级别的错误，会自动调用 handleError 方法，由框架帮你抛出异常：
+&lt;?php public function handleError($level, $message, $file = '', $line = 0, $context = []) { if (error_reporting() &amp; $level) { //抛出的异常,如果没有捕获,又会自动调用 handleException 方法,让 handleException 处理 throw new ErrorException($message, 0, $level, $file, $line); } } 当遇到 非 Warning， Notice级别的错误，导致程序终止，终止前会调用 handleShutdown 方法：
+&lt;?php public function handleShutdown() { if (! is_null($error = error_get_last()) &amp;&amp; $this->isFatal($error['type'])) { //通过 error_get_last 获取最后发生的错误,接着把错误交给 handleException 处理 $this->handleException($this->fatalExceptionFromError($error, 0)); } } 最终，所有未捕获的异常都通过 handleException 集中处理：
+&lt;?php public function handleException($e) { if (! $e instanceof Exception) { $e = new FatalThrowableError($e); } try { //上报错误,在这里记录日志,存到 storage/laravel.log 里 $this->getExceptionHandler()->report($e); } catch (Exception $e) { // } //响应异常 if ($this->app->runningInConsole()) { //渲染 CLI 请求的异常响应 $this->renderForConsole($e); } else { //渲染 HTTP 请求的异常响应 $this->renderHttpResponse($e); } } 稍微总结下：
+通过 set_error_handler 设置了handleError 方法，当出现 Warning ， Notice 级别的错误会自动调用，在 handleError 中抛出异常。抛出的异常如果没有被捕获，会自动调用通过 set_exception_handler 设置的 handleException 方法，将异常交给它处理 当出现非 Warning， Notice 级别的错误，导致程序终止，会自动调用 register_shutdown_function 注册的 handleShutdown 方法，获取到最后发生的错误后，把错误交给 handleException 方法处理 handleException 方法集中处理异常。记录日志，响应请求等。 至此， laravel 实现了「自动」捕获异常。
+注意：下面的代码我一直有个误区：当调用 A() 函数，因为 A 函数不存在，会出现致命错误，程序终止运行，接着调用 register_shutdown_function 注册的回调方法，里面抛出异常，然后会被 catch 捕获，输出333，其实这是不对的。因为发生致命错误，程序已经中断执行了，不会进入到 catch 块。
+register_shutdown_function(function (){ throw new \Exception(333); }); try{ echo A(); }catch (\Exception $e){ echo $e->getMessage(); //不会进入到这里的 } 扩展下 《Modern PHP》提出了四个规则：
+一定要让 PHP 报告错误； 在开发环境中要显示错误； 在生产环境中不能显示错误； 在开发环境和生产环境中都要记录错误； php.ini 文件推荐配置：
+### 开发环境 display_errors = On display_startup_error = On error_reporting = -1 log_errors = On ### 生产环境 display_errors = Off display_startup_error = Off ; 报告 Notice 以外的所有错误 error_reporting = E_ALL &amp; ~E_NOTICE log_errors = On 参考 PHP官方文档
+laravel内核分析</content></entry><entry><title>关于我</title><url>/about.html</url><categories/><tags/><content type="html"> 91 年生人，天蝎男，坐标武汉。
 2014 年本科毕业，专业计算机科学与技术，成为码仔算是专业对口。
 2015 至今 都在写 php，2021 年结识 go 。
 兴趣使然的码仔，记录平凡的生活。</content></entry></search>

@@ -1,0 +1,190 @@
+<!doctype html><html lang=zh-cn dir=content/zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=content-security-policy content="upgrade-insecure-requests"><title>如何「自动」捕获异常处理 - 小记一下</title><meta name=keywords content="博客,程序员,架构,思考,读书,笔记,技术,大数据,go,php,mysql"><meta name=author content="丸子"><meta property="og:title" content="如何「自动」捕获异常处理"><meta property="og:site_name" content="小记一下"><meta property="og:image" content="/img/author.jpg"><meta name=title content="如何「自动」捕获异常处理 - 小记一下"><meta name=description content="php 是如何自动捕获异常."><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href=//unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css rel=stylesheet type=text/css><link href=//unpkg.com/imageviewer@1.1.0/dist/viewer.min.css rel=stylesheet><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle role=button style=opacity:1;top:0><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><div class=custom-logo-site-title><a href=/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>小记一下</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle>保持学习，持续精进</p></div><div class=site-nav-right><div class="toggle popup-trigger" style=opacity:1;top:0><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-active"><a href=/post rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class=menu-item><a href=/about.html rel=section><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于我</a></li><li class=menu-item><a href=/404.html rel=section><i class="menu-item-icon fa fa-fw fa-heartbeat"></i><br>公益404</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class=search-icon><i class="fa fa-search"></i></span>
+<span class=popup-btn-close><i class="fa fa-times-circle"></i></span><div class=local-search-input-wrapper><input autocomplete=off placeholder=搜索关键字... spellcheck=false type=text id=local-search-input autocapitalize=none autocorrect=off></div></div><div id=local-search-result></div></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/php-exception/ itemprop=url>如何「自动」捕获异常处理</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2019-01-11">2019-01-11</time></span>
+<span class=post-category><i class="fa fa-folder-o fa-fw"></i>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a class=post-category-a href=/categories/php itemprop=url rel=index><span itemprop=name>php</span></a>
+&nbsp;</span></span>
+<span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
+<span class=post-meta-item-text>字数：</span>
+<span class=leancloud-world-count>2032 字</span></span>
+<span class=post-readtime><i class="fa fa-eye fa-fw"></i>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-view-count>5分钟</span></span>
+<span id=/post/php-exception/ class="leancloud_visitors post-visitor" data-flag-title=如何「自动」捕获异常处理><i class="fa fa-binoculars fa-fw"></i>
+<span class=post-meta-item-text>阅读次数：</span>
+<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><p><a name=twueF></a></p><h2 id=引入>引入</h2><p>大家都用过 <code>try/catch</code> ，它可以使代码更健壮，捕获错误后也可以触发一些上报机制，比如记日志，邮件提醒等。同时还能带来一些便利，比如使用 <code>laravel</code> 「事务处理」的时候，不用对每次的执行结果进行判断，直接在 <code>catch</code> 中回滚。</p><p>先看一段 <code>PHP</code> 原生代码：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#b8860b>$num</span> <span style=color:#666>=</span> <span style=color:#666>0</span>;
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#666>1</span> <span style=color:#666>/</span> <span style=color:#b8860b>$num</span>; <span style=color:#080;font-style:italic>//除数为0
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>} <span style=color:#a2f;font-weight:700>catch</span> (Exception <span style=color:#b8860b>$e</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#666>2</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>执行后发现，并没有进入到 <code>catch</code> 块，而是显示了错误信息： <code>Warning: Division by zero in xxx</code> 。</p><p>但是这段代码在大部分「框架」中都能进入到 <code>catch</code> 块，正常输出 2 。怎么做到的？
+<a name=VbUpp></a></p><h2 id=错误类型>错误类型</h2><p>关于 <code>PHP</code> 的错误类型和相关说明，<a href=https://www.php.net/manual/zh/errorfunc.constants.php target=_blank rel=noopener>官方文档</a>
+有很详细的说明，主要报以下几种错：</p><ul><li><strong>Fatal Error</strong> ：致命错误；后面脚本终止运行；比如调用的函数不存在</li><li><strong>Parse Error</strong> ：语法错误；后面脚本终止运行；比如少个分号</li><li><strong>Warning Error</strong> ：警告错误；脚本不终止运行；比如除数为 0</li><li><strong>Notice Error</strong> ：通知错误；脚本不终止运行；比如打印一个未定义的变量。 <code>Notice Error</code> 程度比 <code>Warning Error</code> 低
+<a name=TWqyF></a></li></ul><h2 id=自动捕获异常原理>自动捕获异常原理</h2><p><a name=0bTD4></a></p><h3 id=三个函数>三个函数</h3><p>实现自动捕获异常，主要是使用了 3 个关键的函数：</p><ol><li><a href=https://www.php.net/manual/zh/function.set-error-handler.php target=_blank rel=noopener><strong>set_error_handler()</strong></a></li></ol><p>此函数可以用你自定义的方式来处理运行中的错误。当程序出现 <strong>部分类型</strong> 错误时，会 <strong>自动</strong> 调用你设置的方法：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>set_error_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>	<span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;捕获&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span><span style=color:#b8860b>$num</span> <span style=color:#666>=</span> <span style=color:#666>0</span>;
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>echo</span> <span style=color:#666>1</span> <span style=color:#666>/</span> <span style=color:#b8860b>$num</span>; <span style=color:#080;font-style:italic>//执行后,输出&#34;捕获&#34;
+</span></span></span></code></pre></div><p>注意： <code>set_error_handler</code> 函数只能捕获系统产生的一些 <code>Warning</code> 、 <code>Notice</code> 级别的错误，对于其他类型是无能为力的。</p><p><code>trigger_error</code> 函数 ：用户主动产生一个用户级别的 <code>error/warning/notice</code>  信息，这也能被捕获到：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>set_error_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;捕获&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>trigger_error(<span style=color:#b44>&#34;异常&#34;</span>,E_USER_ERROR); <span style=color:#080;font-style:italic>//执行后,输出&#34;捕获&#34;
+</span></span></span></code></pre></div><p>可以用 <code>set_error_handler</code> 注册多个错误处理函数，但是后注册的会 <strong>覆盖</strong> 前一个：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>set_error_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>	<span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;捕获&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>set_error_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>	<span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;捕获2&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#b8860b>$num</span> <span style=color:#666>=</span> <span style=color:#666>0</span>;
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>echo</span> <span style=color:#666>1</span> <span style=color:#666>/</span> <span style=color:#b8860b>$num</span>; <span style=color:#080;font-style:italic>//执行后,输出&#34;捕获2&#34;
+</span></span></span></code></pre></div><ol start=2><li><a href=https://www.php.net/manual/zh/function.register-shutdown-function.php target=_blank rel=noopener><strong>register_shutdown_function()</strong></a></li></ol><p>注册一个会在 <code>PHP</code> 中止时执行的函数。多次调用 <code>register_shutdown_function()</code> ，这些被注册的回调会按照他们**「注册时的顺序被依次调用」：**</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>register_shutdown_function(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>	<span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;结束1&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>register_shutdown_function(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>	<span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#34;结束2&#34;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#39;开始&#39;</span>;<span style=color:#080;font-style:italic>//执行后,输出&#34;开始结束1结束2&#34;
+</span></span></span></code></pre></div><ol start=3><li><a href=https://www.php.net/manual/zh/function.set-exception-handler.php target=_blank rel=noopener><strong>set_exception_handler()</strong></a></li></ol><p>设置默认的异常处理程序，用于没有用 <code>try/catch</code> 块来捕获的异常。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>set_exception_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#39;捕获&#39;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>throw</span> <span style=color:#a2f;font-weight:700>new</span> Exception(<span style=color:#b44>&#34;异常&#34;</span>); <span style=color:#080;font-style:italic>//抛出异常,没有手动捕获.
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic>//执行后,输出&#34;捕获&#34;
+</span></span></span></code></pre></div><p>也可以注册多个，后注册的会 <strong>覆盖</strong> 前一个：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span>set_exception_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#39;捕获1&#39;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>set_exception_handler(<span style=color:#a2f;font-weight:700>function</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b44>&#39;捕获2&#39;</span>;
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>throw</span> <span style=color:#a2f;font-weight:700>new</span> Exception(<span style=color:#b44>&#34;异常&#34;</span>);<span style=color:#080;font-style:italic>//执行后,输出&#34;捕获2&#34;
+</span></span></span></code></pre></div><p><a name=sRcPg></a></p><h3 id=框架实现>框架实现</h3><p>了解了上述三个函数的作用，看看 <code>laravel</code> 是怎么联合使用上述函数，达到「自动捕获异常」目的。</p><p>一开始就在 <code>app.php</code> 中绑定了具体的异常处理类：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span><span style=color:#b8860b>$app</span><span style=color:#666>-&gt;</span><span style=color:#b44>singleton</span>(
+</span></span><span style=display:flex><span>    Illuminate\Contracts\Debug\ExceptionHandler<span style=color:#666>::</span><span style=color:#b44>class</span>,
+</span></span><span style=display:flex><span>    App\Exceptions\Handler<span style=color:#666>::</span><span style=color:#b44>class</span>  <span style=color:#080;font-style:italic>//具体的异常处理类
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>);
+</span></span></code></pre></div><p>接着，在 <code>bootstrap</code> 阶段的 <code>Illuminate\Foundation\Bootstrap\HandleExceptions</code> 部分中设置了系统异常处理行为并注册了全局的异常处理器：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>class</span> <span style=color:#00f>HandleExceptions</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>public</span> <span style=color:#a2f;font-weight:700>function</span> <span style=color:#00a000>bootstrap</span>(Application <span style=color:#b8860b>$app</span>)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>app</span> <span style=color:#666>=</span> <span style=color:#b8860b>$app</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        error_reporting(<span style=color:#666>-</span><span style=color:#666>1</span>);<span style=color:#080;font-style:italic>//报告所有错误
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>
+</span></span><span style=display:flex><span>        <span style=color:#080;font-style:italic>//自定义错误处理函数，当遇到 Warning 、 Notice 级别的错误,自动调用 handleError 
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>        set_error_handler([<span style=color:#b8860b>$this</span>, <span style=color:#b44>&#39;handleError&#39;</span>]);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#080;font-style:italic>//当有未捕获的错误时,自动调用 handleException
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>        set_exception_handler([<span style=color:#b8860b>$this</span>, <span style=color:#b44>&#39;handleException&#39;</span>]);
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span> 				<span style=color:#080;font-style:italic>//当程序终止的时候,自动调用 handleShutdown
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>        register_shutdown_function([<span style=color:#b8860b>$this</span>, <span style=color:#b44>&#39;handleShutdown&#39;</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>当遇到 <code>Warning</code>， <code>Notice</code>级别的错误，会自动调用 <code>handleError</code> 方法，由框架帮你抛出异常：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>public</span> <span style=color:#a2f;font-weight:700>function</span> <span style=color:#00a000>handleError</span>(<span style=color:#b8860b>$level</span>, <span style=color:#b8860b>$message</span>, <span style=color:#b8860b>$file</span> <span style=color:#666>=</span> <span style=color:#b44>&#39;&#39;</span>, <span style=color:#b8860b>$line</span> <span style=color:#666>=</span> <span style=color:#666>0</span>, <span style=color:#b8860b>$context</span> <span style=color:#666>=</span> [])
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#a2f;font-weight:700>if</span> (error_reporting() <span style=color:#666>&amp;</span> <span style=color:#b8860b>$level</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//抛出的异常,如果没有捕获,又会自动调用 handleException 方法,让 handleException 处理
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>    <span style=color:#a2f;font-weight:700>throw</span> <span style=color:#a2f;font-weight:700>new</span> ErrorException(<span style=color:#b8860b>$message</span>, <span style=color:#666>0</span>, <span style=color:#b8860b>$level</span>, <span style=color:#b8860b>$file</span>, <span style=color:#b8860b>$line</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>当遇到 <strong>非</strong> <code>Warning</code>， <code>Notice</code>级别的错误，导致程序终止，终止前会调用 <code>handleShutdown</code> 方法：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>public</span> <span style=color:#a2f;font-weight:700>function</span> <span style=color:#00a000>handleShutdown</span>()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#a2f;font-weight:700>if</span> (<span style=color:#666>!</span> is_null(<span style=color:#b8860b>$error</span> <span style=color:#666>=</span> error_get_last()) <span style=color:#666>&amp;&amp;</span> <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>isFatal</span>(<span style=color:#b8860b>$error</span>[<span style=color:#b44>&#39;type&#39;</span>])) {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//通过 error_get_last 获取最后发生的错误,接着把错误交给 handleException 处理
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>    <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>handleException</span>(<span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>fatalExceptionFromError</span>(<span style=color:#b8860b>$error</span>, <span style=color:#666>0</span>));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>最终，所有未捕获的异常都通过 <code>handleException</code> 集中处理：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#666>&lt;?</span>php
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>public</span> <span style=color:#a2f;font-weight:700>function</span> <span style=color:#00a000>handleException</span>(<span style=color:#b8860b>$e</span>)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#a2f;font-weight:700>if</span> (<span style=color:#666>!</span> <span style=color:#b8860b>$e</span> instanceof Exception) {
+</span></span><span style=display:flex><span>    <span style=color:#b8860b>$e</span> <span style=color:#666>=</span> <span style=color:#a2f;font-weight:700>new</span> FatalThrowableError(<span style=color:#b8860b>$e</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a2f;font-weight:700>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//上报错误,在这里记录日志,存到 storage/laravel.log 里
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>    <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>getExceptionHandler</span>()<span style=color:#666>-&gt;</span><span style=color:#b44>report</span>(<span style=color:#b8860b>$e</span>);
+</span></span><span style=display:flex><span>  } <span style=color:#a2f;font-weight:700>catch</span> (Exception <span style=color:#b8860b>$e</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#080;font-style:italic>//响应异常
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#a2f;font-weight:700>if</span> (<span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>app</span><span style=color:#666>-&gt;</span><span style=color:#b44>runningInConsole</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//渲染 CLI 请求的异常响应
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>    <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>renderForConsole</span>(<span style=color:#b8860b>$e</span>);
+</span></span><span style=display:flex><span>  } <span style=color:#a2f;font-weight:700>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>//渲染 HTTP 请求的异常响应
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>    <span style=color:#b8860b>$this</span><span style=color:#666>-&gt;</span><span style=color:#b44>renderHttpResponse</span>(<span style=color:#b8860b>$e</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p> 稍微总结下：</p><ol><li>通过 <code>set_error_handler</code> 设置了<code>handleError</code> 方法，当出现 <code>Warning</code> ， <code>Notice</code> 级别的错误会自动调用，在 <code>handleError</code> 中抛出异常。抛出的异常如果没有被捕获，会自动调用通过 <code>set_exception_handler</code> 设置的 <code>handleException</code> 方法，将异常交给它处理</li><li>当出现非 <code>Warning</code>， <code>Notice</code> 级别的错误，导致程序终止，会自动调用 <code>register_shutdown_function</code> 注册的 <code>handleShutdown</code> 方法，获取到最后发生的错误后，把错误交给 <code>handleException</code> 方法处理</li><li><code>handleException</code> 方法集中处理异常。记录日志，响应请求等。</li></ol><p>至此， <code>laravel</code> 实现了「自动」捕获异常。</p><p>注意：下面的代码我一直有个误区：当调用 A() 函数，因为 A 函数不存在，会出现致命错误，程序终止运行，接着调用 register_shutdown_function 注册的回调方法，里面抛出异常，然后会被 catch 捕获，输出333，其实这是不对的。因为发生致命错误，程序已经中断执行了，不会进入到 catch 块。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>register_shutdown_function(<span style=color:#a2f;font-weight:700>function</span> (){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>throw</span> <span style=color:#a2f;font-weight:700>new</span> \Exception(<span style=color:#666>333</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>try</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> A();
+</span></span><span style=display:flex><span>}<span style=color:#a2f;font-weight:700>catch</span> (\Exception <span style=color:#b8860b>$e</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>echo</span> <span style=color:#b8860b>$e</span><span style=color:#666>-&gt;</span><span style=color:#b44>getMessage</span>(); <span style=color:#080;font-style:italic>//不会进入到这里的
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>}
+</span></span></code></pre></div><p><a name=qsCDF></a></p><h2 id=扩展下>扩展下</h2><p>《Modern PHP》提出了四个规则：</p><ol><li>一定要让 PHP 报告错误；</li><li>在开发环境中要显示错误；</li><li>在生产环境中不能显示错误；</li><li>在开发环境和生产环境中都要记录错误；</li></ol><p><code>php.ini</code> 文件推荐配置：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic>### 开发环境</span>
+</span></span><span style=display:flex><span><span style=color:#b8860b>display_errors</span> <span style=color:#666>=</span> On
+</span></span><span style=display:flex><span><span style=color:#b8860b>display_startup_error</span> <span style=color:#666>=</span> On
+</span></span><span style=display:flex><span><span style=color:#b8860b>error_reporting</span> <span style=color:#666>=</span> -1
+</span></span><span style=display:flex><span><span style=color:#b8860b>log_errors</span> <span style=color:#666>=</span> On
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>### 生产环境</span>
+</span></span><span style=display:flex><span><span style=color:#b8860b>display_errors</span> <span style=color:#666>=</span> Off
+</span></span><span style=display:flex><span><span style=color:#b8860b>display_startup_error</span> <span style=color:#666>=</span> Off
+</span></span><span style=display:flex><span>; 报告 Notice 以外的所有错误
+</span></span><span style=display:flex><span><span style=color:#b8860b>error_reporting</span> <span style=color:#666>=</span> E_ALL &amp; ~E_NOTICE
+</span></span><span style=display:flex><span><span style=color:#b8860b>log_errors</span> <span style=color:#666>=</span> On
+</span></span></code></pre></div><p><a name=87Xia></a></p><h2 id=参考>参考</h2><ol><li><a href=https://www.php.net/manual/zh/errorfunc.constants.php target=_blank rel=noopener>PHP官方文档</a></li><li><a href=https://learnku.com/docs/laravel-kernel/preface/6943 target=_blank rel=noopener>laravel内核分析</a>
+ </li></ol></div><footer class=post-footer><div class=post-tags><a href=/tags/php rel=tag title=php>#php#</a></div><div class=addthis_inline_share_toolbox></div><div class=reward-qr-info><div>创作实属不易，如有帮助，那就打赏博主些许茶钱吧 ^_^</div><button id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
+<span>赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><img id=wechat_qr src=/img/wechat-pay.png alt="WeChat Pay"><p>微信打赏</p></div><div id=alipay style=display:inline-block><img id=alipay_qr src=/img/ali-pay.png alt=Alipay><p>支付宝打赏</p></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"></div><div class="post-nav-prev post-nav-item"></div></div><div id=wcomments></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>1</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>1</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/duckjiangwei/ target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://www.zhihu.com/ target=_blank title=知乎><i class="fa fa-fw fa-globe"></i>
+知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://juejin.cn/ title=掘金 target=_blank>掘金</a></li><li class=links-of-blogroll-item><a href=https://time.geekbang.org/ title=极客时间 target=_blank>极客时间</a></li><li class=links-of-blogroll-item><a href=https://segmentfault.com/ title=思否 target=_blank>思否</a></li><li class=links-of-blogroll-item><a href=https://www.oschina.net/ title=开源中国 target=_blank>开源中国</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>
+标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
+<sup>1</sup></a></li></ul></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span class=copyright-year>&copy; 2010 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=copyright-author>小记一下</span></div><div class=powered-info><span class=powered-by>Powered by - <a class=powered-link href=//gohugo.io target=_blank title=hugo>Hugo v0.100.2</a></span>
+<span class=separator-line>/</span>
+<span class=theme-info>Theme by - <a class=powered-link href=//github.com/elkan1788/hugo-theme-next target=_blank>NexT</a></span></div><div class=vistor-info><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<span class=site-uv><i class="fa fa-user"></i>
+<span class=busuanzi-value id=busuanzi_value_site_uv></span></span>
+<span class=separator-line>/</span>
+<span class=site-pv><i class="fa fa-eye"></i>
+<span class=busuanzi-value id=busuanzi_value_site_pv></span></span></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript src=//unpkg.com/jquery@2.1.4/dist/jquery.min.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript>function detectIE(){var e=window.navigator.userAgent,t=e.indexOf('MSIE '),n=e.indexOf('Trident/'),s=e.indexOf('Edge/');return t>0||n>0||s>0?-1:1}function getCntViewHeight(){var t=$('#content').height(),e=$(window).height(),n=t>e?t-e:$(document).height()-e;return n}function getScrollbarWidth(){var e=$('<div />').addClass('scrollbar-measure').prependTo('body'),t=e[0],n=t.offsetWidth-t.clientWidth;return e.remove(),n}function registerBackTop(){var t=50,e=$('.back-to-top');$(window).on('scroll',function(){e.toggleClass('back-to-top-on',window.pageYOffset>t);var s=$(window).scrollTop(),o=getCntViewHeight(),i=s/o,n=Math.round(i*100),a=n>100?100:n;$('#scrollpercent>span').html(a)}),e.on('click',function(){$("html,body").animate({scrollTop:0,screenLeft:0},800)})}function initScrollSpy(){var e='.post-toc',s=$(e),t='.active-current';s.on('activate.bs.scrollspy',function(){var t=$(e+' .active').last();n(),t.addClass('active-current')}).on('clear.bs.scrollspy',n),$('body').scrollspy({target:e});function n(){$(e+' '+t).removeClass(t.substring(1))}}function initAffix(){var e=$('.header-inner').height(),t=parseInt($('.footer').outerHeight(!0),10),n=e+10;$('.sidebar-inner').affix({offset:{top:n,bottom:t}})}function initTOCDimension(){$(window).on('resize',function(){e&&clearTimeout(e),e=setTimeout(function(){var e=document.body.clientHeight-100;updateTOCHeight(e)},0)}),updateTOCHeight(document.body.clientHeight-100);var e,t=getScrollbarWidth();$('.post-toc').css('width','calc(100% + '+t+'px)')}function updateTOCHeight(e){e=e||'auto',$('.post-toc').css('max-height',e)}$(function(){var e,t,n,s,o=$('.header-inner').height()+10;$('#sidebar').css({'margin-top':o}).show(),t=parseInt($('#sidebar').css('margin-top')),n=parseInt($('.sidebar-inner').css('height')),e=t+n,s=$('.content-wrap').height(),s<e&&$('.content-wrap').css('min-height',e),$('.site-nav-toggle').on('click',function(){var e=$('.site-nav'),o=$('.toggle'),t='site-nav-on',i='toggle-close',n=e.hasClass(t),a=n?'slideUp':'slideDown',s=n?'removeClass':'addClass';e.stop()[a]('normal',function(){e[s](t),o[s](i)})}),registerBackTop(),initAffix(),initTOCDimension(),$('.sidebar-nav-toc').click(function(){$(this).addClass('sidebar-nav-active'),$(this).next().removeClass('sidebar-nav-active'),$('.'+$(this).next().attr('data-target')).toggle(500),$('.'+$(this).attr('data-target')).toggle(500)}),$('.sidebar-nav-overview').click(function(){$(this).addClass('sidebar-nav-active'),$(this).prev().removeClass('sidebar-nav-active'),$('.'+$(this).prev().attr('data-target')).toggle(500),$('.'+$(this).attr('data-target')).toggle(500)})})</script><script src=//unpkg.com/imageviewer@1.1.0/dist/viewer.min.js></script>
+<script type=text/javascript>$(function(){$('.post-body').viewer()})</script><script type=text/javascript>const locale={placeholder:''};$(function(){detectIE()>0?$.getScript(document.location.protocol+'//unpkg.com/@waline/client@1.6.0/dist/Waline.min.js',function(){new Waline({el:'#wcomments',visitor:!0,emoji:[],wordLimit:'200',uploadImage:!1,locale,requiredMeta:['nick','mail'],serverURL:"Your WalineSerURL",lang:"zh-cn"})}):$('#wcomments').html('抱歉，Waline插件不支持IE或Edge，建议使用Chrome浏览器。')})</script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=Your%20AddthisId"></script>
+<script>(function(){var t,e=document.createElement('script'),n=window.location.protocol.split(':')[0];n==='https'?e.src='https://zz.bdstatic.com/linksubmit/push.js':e.src='http://push.zhanzhang.baidu.com/push.js',t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>
