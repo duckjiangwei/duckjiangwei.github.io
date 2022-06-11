@@ -12,37 +12,40 @@
 &nbsp;</span></span>
 <span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
 <span class=post-meta-item-text>字数：</span>
-<span class=leancloud-world-count>716 字</span></span>
+<span class=leancloud-world-count>714 字</span></span>
 <span class=post-readtime><i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-view-count>2分钟</span></span>
 <span id=/post/mysql8-%E7%89%B9%E6%80%A7/ class="leancloud_visitors post-visitor" data-flag-title="mysql8 好用特性总结"><i class="fa fa-binoculars fa-fw"></i>
 <span class=post-meta-item-text>阅读次数：</span>
-<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><hr><p><a name=N2FGl></a></p><h2 id=引入>引入</h2><p><code>MySQL 8</code> 出来好几年了，但是没去了解，一直都在用 5.7 ，上次本杰问我知不知道「窗口函数」，直接老脸一红。<br>最近看了下相关资料，总结三个 MySQL 8 好用的新特性。</p><p>在某个平行时空，H5 尾牙的中奖信息如下：<br><img src=//duckjiangwei.github.io/img/php/25.png alt=screenshot.png>
+<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><hr><p><a name=N2FGl></a></p><h2 id=引入>引入</h2><p><code>MySQL8</code> 出来好几年了，但是没去了解，一直都在用 5.7 ，上次本杰问我知不知道「窗口函数」，直接老脸一红。<br>最近看了下相关资料，总结三个 MySQL8 好用的新特性。</p><p>在某个平行时空，H5 尾牙的中奖信息如下：<br><img src=//duckjiangwei.github.io/img/php/25.png alt=screenshot.png>
 <a name=rSTmU></a></p><h2 id=隐藏索引>隐藏索引</h2><p>MySQL 8 可以临时隐藏索引。<br>隐藏索引可以在不改变实际索引结构的情况下，测试删除索引对于查询性能的影响，对于大表的优化十分有用，因为大表删除并重建索引的开销很大。</p><p>首先给上表的 money 字段加索引，然后隐藏索引，展示索引，结果如下：<br><img src=//duckjiangwei.github.io/img/php/15.png alt=screenshot.png>
 <a name=MlRxI></a></p><h2 id=窗口函数>窗口函数</h2><p>我们要根据上表，统计如下信息，并展示在一张表里：</p><ol><li>中奖总额</li><li>各岗位线中奖总额</li><li>每个人中奖金额，占岗位线金额的百分比</li><li>每个人中奖金额，占总金额百分比</li></ol><p>在 MySQL 8 以前，我可能会选择用临时表完成此查询：</p><ol><li>查总金额</li></ol><p><img src=//duckjiangwei.github.io/img/php/16.png alt=screenshot.png></p><ol start=2><li>根据岗位线聚合，查中奖总额</li></ol><p><img src=//duckjiangwei.github.io/img/php/17.png alt=screenshot.png></p><ol start=3><li>通过关联临时表，完成查询</li></ol><p><img src=//duckjiangwei.github.io/img/php/18.png alt=screenshot.png>
 MySQL 8 提供了 <strong>窗口函数</strong>，可以很方便的完成查询：<br><img src=//duckjiangwei.github.io/img/php/19.png alt=screenshot.png></p><p>由上可知，窗口函数的作用，也是对数据进行分组。和<code>group by</code>不同的是，<code>group by</code>会把分组的结果聚合成一条记录，而窗口函数是将结果置于 <strong>每一条</strong> 数据记录中。
 <a name=Kh7ue></a></p><h2 id=公用表表达式>公用表表达式</h2><p>公用表表达式是一个命名的临时结果集。它存在于单个查询语句中，主要作用就是可以 <strong>代替子查询，并且可以被后面的查询多次引用</strong>。</p><p>依据语法结构和执行方式的不同，可以分为 2 类：<strong>普通公用表表达式</strong> 和 <strong>递归公用表表达式。</strong>
 <a name=wxQXh></a></p><h3 id=普通公用表表达式>普通公用表表达式</h3><p>这里还有一张表，记录了历年的中奖记录，如下：<br><img src=//duckjiangwei.github.io/img/php/20.png alt=screenshot.png><br>现在要查询「2020年和2021年都中奖的人」，可以用子查询查出结果，如下：<br><img src=//duckjiangwei.github.io/img/php/21.png alt=screenshot.png><br>在 MySQL 8 中可以通过普通公用表表达式查询：<br><img src=//duckjiangwei.github.io/img/php/22.png alt=screenshot.png>
 <a name=GtHch></a></p><h3 id=递归公用表表达式>递归公用表表达式</h3><p>这里有几只数码宝贝的进化链，</p><ol><li>滚球兽->亚古兽->暴龙兽</li><li>独角兽->加布兽->加鲁鲁兽</li><li>年糕兽->甲虫兽->比多兽</li></ol><p>存表如下：<br><img src=//duckjiangwei.github.io/img/php/23.png alt=screenshot.png><br>现在要查成熟期的数码宝贝：<br><img src=//duckjiangwei.github.io/img/php/24.png alt=screenshot.png></p></div><footer class=post-footer><div class=post-tags><a href=/tags/mysql rel=tag title=mysql>#mysql#</a></div><div class=addthis_inline_share_toolbox></div><div class=reward-qr-info><div>创作实属不易，如有帮助，那就打赏博主些许茶钱吧 ^_^</div><button id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
-<span>赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><img id=wechat_qr src=/img/wechat-pay.png alt="WeChat Pay"><p>微信打赏</p></div><div id=alipay style=display:inline-block><img id=alipay_qr src=/img/ali-pay.png alt=Alipay><p>支付宝打赏</p></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"></div><div class="post-nav-prev post-nav-item"><a href=/post/https-%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93/ rel=prev title="https 加密传输">https 加密传输
+<span>赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><img id=wechat_qr src=/img/wechat-pay.png alt="WeChat Pay"><p>微信打赏</p></div><div id=alipay style=display:inline-block><img id=alipay_qr src=/img/ali-pay.png alt=Alipay><p>支付宝打赏</p></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/ rel=next title=字符编码><i class="fa fa-chevron-left"></i> 字符编码</a></div><div class="post-nav-prev post-nav-item"><a href=/post/git%E6%80%BB%E7%BB%93/ rel=prev title=git总结>git总结
 <i class="fa fa-chevron-right"></i></a></div></div><div id=wcomments></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>6</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>7</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>13</span>
+<span class=site-state-item-name>博客</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>10</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/duckjiangwei/ target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
 <span class=links-of-author-item><a href=https://www.zhihu.com/ target=_blank title=知乎><i class="fa fa-fw fa-globe"></i>
 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>
 友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://juejin.cn/ title=掘金 target=_blank>掘金</a></li><li class=links-of-blogroll-item><a href=https://time.geekbang.org/ title=极客时间 target=_blank>极客时间</a></li><li class=links-of-blogroll-item><a href=https://segmentfault.com/ title=思否 target=_blank>思否</a></li><li class=links-of-blogroll-item><a href=https://www.oschina.net/ title=开源中国 target=_blank>开源中国</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>
-标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
-<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/composer>Composer
-<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/css>Css
-<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/html>HTML
+标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/elasticsearch>Elasticsearch
+<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
+<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80>计算机基础
+<sup>2</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/composer>Composer
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/git>Git
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/https>HTTPS
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/markdown>Markdown
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/mysql>Mysql
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/tcp>Tcp
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%AD%A3%E5%88%99>正则
 <sup>1</sup></a></li></ul></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span class=copyright-year>&copy; 2010 - 2022</span>
 <span class=with-love><i class="fa fa-heart"></i></span>
 <span class=copyright-author>小记一下</span></div><div class=powered-info><span class=powered-by>Powered by - <a class=powered-link href=//gohugo.io target=_blank title=hugo>Hugo v0.100.2</a></span>

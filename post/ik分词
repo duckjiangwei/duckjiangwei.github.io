@@ -1,0 +1,140 @@
++++
+author = "丸子"
+title = "es安装ik分词器"
+date = "2020-07-16"
+description = "es安装ik分词器"
+tags = [
+    "Elasticsearch",
+]
+categories = [
+    "数据库",
+]
++++
+--- 
+es 默认分词器并不能正确把中文分词，所以我们需要安装 ik 分词器。
+
+步骤：
+
+1. 查看 es 版本，然后安装对应版本的 ik 分词器。否则 es 无法重启。
+```bash
+# 查看es版本
+curl -XGET localhost:9200
+```
+
+2. 下载好 ik 分词插件后，解压，并重命名为 ik(也可以重命名为其他名字，测试过，也行)
+```bash
+# 解压
+unzip elasticsearch-analysis-ik-6.8.13.zip
+# 将解压的文件放入文件夹,重命名为 ik
+```
+
+3. 移动到 es 的插件目录下
+```bash
+cp -R /ik  /usr/share/elasticsearch/plugins
+```
+
+4. 重启 es
+```bash
+docker restart es
+```
+
+这样 ik 分词器就装好了。接着可以自己测试下：<br />首先可以用es自带的分词器去分词:
+```bash
+GET 42.193.178.131:9200/_analyze
+{
+  "analyzer": "standard",
+  "text": "我是中国人"
+}
+```
+结果如下：
+```bash
+{
+    "tokens": [
+        {
+            "token": "我",
+            "start_offset": 0,
+            "end_offset": 1,
+            "type": "<IDEOGRAPHIC>",
+            "position": 0
+        },
+        {
+            "token": "是",
+            "start_offset": 1,
+            "end_offset": 2,
+            "type": "<IDEOGRAPHIC>",
+            "position": 1
+        },
+        {
+            "token": "中",
+            "start_offset": 2,
+            "end_offset": 3,
+            "type": "<IDEOGRAPHIC>",
+            "position": 2
+        },
+        {
+            "token": "国",
+            "start_offset": 3,
+            "end_offset": 4,
+            "type": "<IDEOGRAPHIC>",
+            "position": 3
+        },
+        {
+            "token": "人",
+            "start_offset": 4,
+            "end_offset": 5,
+            "type": "<IDEOGRAPHIC>",
+            "position": 4
+        }
+    ]
+}
+```
+接着用 ik 分词器去分词：
+```bash
+GET 42.193.178.131:9200/_analyze
+{
+  "analyzer": "ik_max_word",  # 之所以用 ik_max_word ，是ik的文档上告诉的
+  "text": "我是中国人"
+}
+```
+分词成功：
+```bash
+{
+    "tokens": [
+        {
+            "token": "我",
+            "start_offset": 0,
+            "end_offset": 1,
+            "type": "CN_CHAR",
+            "position": 0
+        },
+        {
+            "token": "是",
+            "start_offset": 1,
+            "end_offset": 2,
+            "type": "CN_CHAR",
+            "position": 1
+        },
+        {
+            "token": "中国人",
+            "start_offset": 2,
+            "end_offset": 5,
+            "type": "CN_WORD",
+            "position": 2
+        },
+        {
+            "token": "中国",
+            "start_offset": 2,
+            "end_offset": 4,
+            "type": "CN_WORD",
+            "position": 3
+        },
+        {
+            "token": "国人",
+            "start_offset": 3,
+            "end_offset": 5,
+            "type": "CN_WORD",
+            "position": 4
+        }
+    ]
+}
+```

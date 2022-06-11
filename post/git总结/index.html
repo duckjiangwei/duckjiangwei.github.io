@@ -1,0 +1,180 @@
+<!doctype html><html lang=zh-cn dir=content/zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=content-security-policy content="upgrade-insecure-requests"><title>git总结 - 小记一下</title><meta name=keywords content="博客,程序员,架构,思考,读书,笔记,技术,大数据,go,php,mysql"><meta name=author content="丸子"><meta property="og:title" content="git总结"><meta property="og:site_name" content="小记一下"><meta property="og:image" content="/img/author.jpg"><meta name=title content="git总结 - 小记一下"><meta name=description content="git总结"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href=//unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css rel=stylesheet type=text/css><link href=//unpkg.com/imageviewer@1.1.0/dist/viewer.min.css rel=stylesheet><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle role=button style=opacity:1;top:0><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><div class=custom-logo-site-title><a href=/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>小记一下</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle>保持学习，持续精进</p></div><div class=site-nav-right><div class="toggle popup-trigger" style=opacity:1;top:0><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-active"><a href=/post rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class=menu-item><a href=/about.html rel=section><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于我</a></li><li class=menu-item><a href=/404.html rel=section><i class="menu-item-icon fa fa-fw fa-heartbeat"></i><br>公益404</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class=search-icon><i class="fa fa-search"></i></span>
+<span class=popup-btn-close><i class="fa fa-times-circle"></i></span><div class=local-search-input-wrapper><input autocomplete=off placeholder=搜索关键字... spellcheck=false type=text id=local-search-input autocapitalize=none autocorrect=off></div></div><div id=local-search-result></div></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/git%E6%80%BB%E7%BB%93/ itemprop=url>git总结</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2020-11-27">2020-11-27</time></span>
+<span class=post-category><i class="fa fa-folder-o fa-fw"></i>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a class=post-category-a href=/categories/%E5%B7%A5%E5%85%B7 itemprop=url rel=index><span itemprop=name>工具</span></a>
+&nbsp;</span></span>
+<span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
+<span class=post-meta-item-text>字数：</span>
+<span class=leancloud-world-count>3505 字</span></span>
+<span class=post-readtime><i class="fa fa-eye fa-fw"></i>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-view-count>7分钟</span></span>
+<span id=/post/git%E6%80%BB%E7%BB%93/ class="leancloud_visitors post-visitor" data-flag-title=git总结><i class="fa fa-binoculars fa-fw"></i>
+<span class=post-meta-item-text>阅读次数：</span>
+<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><hr><p><a name=QNk5I></a></p><h2 id=优点>优点</h2><p><a name=vl0oC></a></p><h3 id=高性能>高性能</h3><p>分布式架构也给 Git 带来了巨大的性能优势。每个人的本地都有一份完整的代码，可以任意在分支中切换，不需要网络。提交给远程仓库，只需要一个 push 命令。
+<a name=p6nwf></a></p><h3 id=安全>安全</h3><p>文件内容以及文件、目录、版本、标签和提交的关联，都通过安全的加密哈希校验算法（SHA1）保护，避免篡改
+<a name=w2FHN></a></p><h3 id=灵活>灵活</h3><p>支持多种非线性的工作流，对不同规模的项目来说都很高效，并且兼容多个操作系统和协议(http，ssh)。<br>Git 在设计时最重要的功能便是分支和标签（不同于 SVN），因此所有影响分支和标签的操作也都会被保存到修改历史中
+<a name=Q9nns></a></p><h2 id=安装>安装</h2><blockquote><p>对于 Windows 用户，安装后如果希望在全局的 cmd 中使用 Git，需要把 git.exe 加入 PATH 环境变量中，或在 Git Bash 中使用 Git</p></blockquote><p><a name=K2zZS></a></p><h2 id=工作流>*工作流</h2><p>你的 <strong>本地</strong> 仓库由 Git 维护的三棵「树」组成：</p><ol><li>第一个是你的 工作目录，它持有实际文件；</li><li>第二个是 暂存区（Index）<strong>(或者叫缓存区)</strong>，它像个缓存区域，临时保存你的改动；</li><li>最后是 HEAD，指向你最近一次提交后的结果。</li></ol><p><img src=//duckjiangwei.github.io/img/php/35.png alt=screenshot.png></p><blockquote><p>事实上，第三个阶段是 commit history 的图。HEAD 一般是指向最新一次 commit 的引用。</p></blockquote><p><a name=VLurH></a></p><h3 id=缓存区>缓存区</h3><p>如果改动很多的时候，不要一次提交，而是按逻辑切分，多次 add，以便追踪 bug ， 用最小的代价回滚修改。
+<a name=X2BdS></a></p><h2 id=简单使用>简单使用</h2><p><a name=Qzq71></a></p><h3 id=检出仓库>检出仓库</h3><p>执行如下命令以创建一个本地仓库的克隆版本：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git clone /path/to/repository
+</span></span></code></pre></div><p>如果是远端服务器上的仓库，你的命令会是这个样子：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git clone username@host:/path/to/repository （通过 SSH）
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git clone https:/path/to/repository.git （通过 https）
+</span></span></code></pre></div><p>上述命令会把代码 clone 到指定目录
+<a name=o5UPD></a></p><h3 id=创建新仓库>创建新仓库</h3><p>创建新文件夹，打开，然后执行 git init 以创建新的 git 仓库。<br>经验：随时可以通过 git status 来查看你的 git 仓库状态。
+<a name=ICnDJ></a></p><h3 id=添加与提交>添加与提交</h3><p>把改动添加到缓存区：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git add &lt; filename &gt;
+</span></span><span style=display:flex><span>git add *
+</span></span></code></pre></div><p>再使用 commit 实际提交改动：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;代码提交信息&#34;</span>
+</span></span></code></pre></div><p>现在，你的改动已经提交到了 HEAD，但是还没到你的远端仓库。
+<a name=r2dKk></a></p><h3 id=推送改动>推送改动</h3><p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 可以把 master 换成你想要推送的任何分支（当前分支的远端）。</span>
+</span></span><span style=display:flex><span>git push origin master
+</span></span></code></pre></div><p>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># &lt;server&gt;是在 github 上复制的，可以是http协议(https://gitee.com/dota91/t1.git)，也可以是 ssh 协议(git@gitee.com:dota91/t1.git)</span>
+</span></span><span style=display:flex><span>git remote add origin &lt;server&gt;
+</span></span></code></pre></div><p>注意：这里 origin 是 <server>的别名，取什么名字都可以，你也可以在 push 时将 <jserver>替换为 origin。但为了以后 push 方便，我们第一次一般都会先 remote add。
+<a name=P1JIj></a></p><h2 id=常见命令>常见命令</h2><p><a name=gpWyx></a></p><h3 id=git-init>git init</h3><p>将当前的目录转换成一个 Git 仓库。它在当前的目录下增加了一个 .git 目录，于是就可以开始记录项目版本了。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git init
+</span></span></code></pre></div><p>经验：对大多数项目来说，git init 只需要在创建中央仓库时执行一次——开发者通常不会使用 git init 来创建他们的本地仓库。他们往往使用 git clone 来将已存在的仓库拷贝到他们的机器中去。
+<a name=xAspn></a></p><h3 id=git-clone>git clone</h3><p>git clone 命令拷贝整个 Git 仓库。<br>为了方便起见，clone 自动创建了一个名为 origin 的远程连接(相当于自动执行了：git remote add origin &lt;原仓库>)，指向原有仓库。这让和中央仓库之间的交互更加简单。
+<a name=xqvYf></a></p><h3 id=git-add>git add</h3><p>git add 命令将工作目录中的变化 <strong>添加到暂存区</strong>。但是，git add 不会实质上地影响你的仓库——在你运行 git commit 前更改都还没有真正被记录。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 将所有更改提交</span>
+</span></span><span style=display:flex><span>git add . 
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 将某文件提交</span>
+</span></span><span style=display:flex><span>git add a.txt
+</span></span></code></pre></div><p><a name=CxqmK></a></p><h3 id=git-commit>git commit</h3><p>git commit命令将缓存的快照提交到项目历史，也就是本地的第三棵树：HEAD
+<a name=kUT74></a></p><h3 id=git-status>git status</h3><p>git status 命令显示工作目录和缓存区的状态。你可以看到哪些更改被缓存了，哪些还没有，以及哪些还未被 Git 追踪。<br>status 的输出 不会 告诉你任何已提交到项目历史的信息。如果你想看的话，应该使用 git log 命令。
+<a name=jELUk></a></p><h3 id=git-log>git log</h3><p>查看提交记录
+<a name=sKJ4g></a></p><h3 id=git-checkout>git checkout</h3><p>git checkout 这个命令有三个不同的作用：</p><ul><li>检出文件</li><li>检出提交</li><li>检出分支。</li></ul><p>检出提交会使工作目录和这个提交完全匹配。你可以用它来查看项目之前的状态，而不改变当前的状态。<br>检出文件使你能够查看某个特定文件的旧版本，而工作目录中剩下的文件不变。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 回到master 分支</span>
+</span></span><span style=display:flex><span>git checkout master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>#查看文件之前的版本。它将工作目录中的 &lt;file&gt; 文件变成 &lt;commit&gt; 中那个文件的拷贝，并将它加入缓存区：git checkout a1e8fb5 hello.py</span>
+</span></span><span style=display:flex><span>git checkout &lt;commit&gt; &lt;file&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 更新工作目录中的所有文件，使得和某个特定提交中的文件一致。你可以将提交的哈希字串，或是标签作为 &lt;commit&gt; 参数。这会使你处在分离 HEAD 的状态。</span>
+</span></span><span style=display:flex><span>git checkout &lt;commit&gt;
+</span></span></code></pre></div><p><a name=jLIgb></a></p><h3 id=git-revert>git revert</h3><p>比如按时间顺序依次提交了A,B,C三次. 你选择还原 revert A, 那么会丢弃掉 A 的修改, 保留 B,C的修改,同时再提交一次 D<br>理解这一点很重要。git revert 回滚了「单独一个提交」，它 <strong>没有移除后面的提交</strong>，然后回到项目之前的状态。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git revert &lt;commit&gt;
+</span></span></code></pre></div><p><a name=TwSF3></a></p><h3 id=git-reset>git reset</h3><p>比如按时间顺序依次提交了A,B,C三次. 你选择还原 reset A,那么会回到A, 这时候B和C的修改都丢掉了。<br>确保你只在本地使用 reset.
+<a name=aLnvZ></a></p><h3 id=git-remote>git remote</h3><p>git remote 命令允许你创建、查看和删除和其它仓库之间的连接。它用方便记住的 **别名 **引用不那么方便记住的 URL，而不是提供其他仓库的实时连接。</p><p>列出你和其他仓库之间的远程连接：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git remote -v
+</span></span></code></pre></div><p>经验：一个仓库可以设置多个远程仓库，你提交的时候需要指定，否则就提交到默认去了</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 创建一个新的远程仓库连接</span>
+</span></span><span style=display:flex><span>git remote add &lt;name&gt; &lt;url&gt;
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 移除名为的远程仓库的连接</span>
+</span></span><span style=display:flex><span>git remote rm &lt;name&gt;
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 将远程连接从 &lt;old-name&gt; 重命名为 &lt;new-name&gt;</span>
+</span></span><span style=display:flex><span>git remote rename &lt;old-name&gt; &lt;new-name&gt;
+</span></span></code></pre></div><p>查看远端分支：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 远程分支拥有 remote 的前缀，所以你不会将它们和本地分支混起来</span>
+</span></span><span style=display:flex><span>git branch -r
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># origin/master</span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># origin/develop</span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># origin/some-feature</span>
+</span></span></code></pre></div><p><a name=XcjQR></a></p><h3 id=git-fetch>git fetch</h3><p>当你希望查看其他人的工作进展时，你需要 fetch。fetch 下来的内容表示为一个远程分支，因此不会影响你的本地开发。这是一个安全的方式，在整合进你的本地仓库之前，检查那些提交。
+<a name=Y33Ay></a></p><h3 id=git-pull>git pull</h3><p>我们已经知道应该使用 git fetch，然后是 git merge，但是 git pull 将这两个命令合二为一。它使本地仓库代码和远端同步。
+<a name=U3lvO></a></p><h3 id=git-push>git push</h3><p>Push 是你将本地仓库中的提交转移到远程仓库中时要做的事。</p><p>将指定的分支推送到 <remote>上，包括所有需要的提交和提交对象。它会在目标仓库中创建一个本地分支(创建了远端分支)：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git push &lt;remote&gt; &lt;branch&gt;
+</span></span></code></pre></div><p>当你推送一个分支或是使用 &ndash;all 选项时，标签不会被自动推送上去。&ndash;tags 将你所有的本地标签推送到远程仓库中去：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git push &lt;remote&gt; --tags
+</span></span></code></pre></div><p>注意：<br>如果你在某个分支上做了改动，然后直接 git push， 会报错：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>fatal: The current branch asd has no upstream branch.
+</span></span><span style=display:flex><span>To push the current branch and <span style=color:#a2f>set</span> the remote as upstream, use
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    git push --set-upstream origin asd
+</span></span></code></pre></div><p>提示你当前分支没有远端分支，此时你需要指定远端分支：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git push origin asd
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 或</span>
+</span></span><span style=display:flex><span>git push --set-upstream origin asd
+</span></span></code></pre></div><p>你只能推送到当前分支的远端分支，比如你在 a 分支，你不能：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git push origin master
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 会提示： Everything up-to-date ，然后什么也没有发生</span>
+</span></span></code></pre></div><p><a name=lMRyp></a></p><h3 id=git-branch>git branch</h3><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 列出所有分支</span>
+</span></span><span style=display:flex><span>git branch &lt;branch&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 创建一个名为 &lt;branch&gt; 的分支，不会自动切换到那个分支</span>
+</span></span><span style=display:flex><span>git branch -d &lt;branch&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 删除分支</span>
+</span></span><span style=display:flex><span>git branch -d &lt;branch&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 强制删除指定分支，即使包含未合并更改。</span>
+</span></span><span style=display:flex><span>git branch -D &lt;branch&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 将当前分支命名为 &lt;branch&gt;</span>
+</span></span><span style=display:flex><span>git branch -m &lt;branch&gt;	
+</span></span></code></pre></div><p>经验：分支只是指向提交的 指针 ，理解这一点很重要。当你创建一个分支是，Git 只需要创建一个新的指针——仓库不会受到任何影响。<br><img src=//duckjiangwei.github.io/img/php/36.png alt=screenshot.png>
+<a name=WgXRl></a></p><h3 id=git-checkout-1>git checkout</h3><p>切换分支</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 切换分支</span>
+</span></span><span style=display:flex><span>git checkout &lt;existing-branch&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 创建分支并切换</span>
+</span></span><span style=display:flex><span>git checkout -b &lt;new-branch&gt;
+</span></span></code></pre></div><p><a name=qjKEH></a></p><h3 id=git-merge>git merge</h3><p>git merge 命令允许你将 git branch 创建的多条分支合并成一个。</p><p>Git 有几种不同的算法来完成合并：</p><ul><li>快速向前合并</li></ul><p>当当前分支顶端到目标分支路径是线性之时，我们可以采取 快速向前合并 。Git 只需要将当前分支顶端（快速向前地）移动到目标分支顶端，即可整合两个分支的历史，而不需要“真正”合并分支。<br>比如只有你一个人开发，你先从 master checkout 一个分支，开发完毕后，再合 master<br>例子：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 开始新功能</span>
+</span></span><span style=display:flex><span>git checkout -b new-feature master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 编辑文件</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;开始新功能&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 编辑文件</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;完成功能&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 合并new-feature分支</span>
+</span></span><span style=display:flex><span>git checkout master
+</span></span><span style=display:flex><span>git merge new-feature
+</span></span><span style=display:flex><span>git branch -d new-feature
+</span></span></code></pre></div><ul><li>三路合并</li></ul><p>如果分支已经分叉了，那么就无法进行快速向前合并。当和目标分支之间的路径不是线性之时，Git 只能执行 三路合并 。三路合并使用一个专门的提交来合并两个分支的历史。<br><img src=//duckjiangwei.github.io/img/php/37.png alt=screenshot.png><br><img src=//duckjiangwei.github.io/img/php/38.png alt=screenshot.png><br>例子：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#080;font-style:italic># 开始新功能</span>
+</span></span><span style=display:flex><span>git checkout -b new-feature master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 编辑文件</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;开始新功能&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 编辑文件</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;完成功能&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 在master分支上开发</span>
+</span></span><span style=display:flex><span>git checkout master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 编辑文件</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git commit -m <span style=color:#b44>&#34;在master上添加了一些极其稳定的功能&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic># 合并new-feature分支</span>
+</span></span><span style=display:flex><span>git merge new-feature
+</span></span><span style=display:flex><span>git branch -d new-feature
+</span></span></code></pre></div><p><a name=oiz7V></a></p><h3 id=rebase>rebase</h3><p><a href=https://github.com/geeeeeeeeek/git-recipes/blob/master/sources/5.1-%E4%BB%A3%E7%A0%81%E5%90%88%E5%B9%B6Merge%E8%BF%98%E6%98%AFRebase.md target=_blank rel=noopener>参考</a><br>rebase 和 merge 都是合并提交。<br>merge 你会得到下面的分支结构：<br><img src=//duckjiangwei.github.io/img/php/39.png alt=screenshot.png><br>而 rebase ,比如说 git rebase master ,<strong>它会把整个 feature 分支移动到 master 分支的后面</strong>，有效地把所有 master 分支上新的提交并入过来。rebase 为原分支上(即 feature 分支) **每一个 **提交创建一个新的提交，重写了项目历史，并且不会带来合并提交。你得到的分支结构如下：<br><img src=//duckjiangwei.github.io/img/php/40.png alt=screenshot.png><br>rebase 的好处是：可以清理混乱的提交历史，忽略不重要的提交，让你的项目历史会非常整洁。但是，这样会有问题：因为它只是将另一个分支的提交，粗暴的创建新的提交，接在 master 分支的后面。相当于是重写了项目的提交历史，没有可跟踪性，同时，rebase 不会有合并提交中附带的信息——你看不到 feature 分支中并入了上游的哪些更改，这又没有安全性。
+<a name=lLhOH></a></p><h2 id=git-图解>*GIT 图解</h2><p><img src=//duckjiangwei.github.io/img/php/41.png alt=screenshot.png></p><p><img src=//duckjiangwei.github.io/img/php/42.png alt=screenshot.png></p><ul><li>git commit -a 相当于运行 git add 把所有当前目录下的文件加入 stage 缓存再运行 git commit。
+<a name=nlHQB></a></li></ul><h2 id=资料>资料</h2><ol><li><a href=https://github.com/geeeeeeeeek/git-recipes/tree/master/sources target=_blank rel=noopener>github</a></li></ol></div><footer class=post-footer><div class=post-tags><a href=/tags/git rel=tag title=git>#git#</a></div><div class=addthis_inline_share_toolbox></div><div class=reward-qr-info><div>创作实属不易，如有帮助，那就打赏博主些许茶钱吧 ^_^</div><button id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
+<span>赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><img id=wechat_qr src=/img/wechat-pay.png alt="WeChat Pay"><p>微信打赏</p></div><div id=alipay style=display:inline-block><img id=alipay_qr src=/img/ali-pay.png alt=Alipay><p>支付宝打赏</p></div></div></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/mysql8-%E7%89%B9%E6%80%A7/ rel=next title="mysql8 好用特性总结"><i class="fa fa-chevron-left"></i> mysql8 好用特性总结</a></div><div class="post-nav-prev post-nav-item"><a href=/post/%E6%AD%A3%E5%88%99/ rel=prev title=常用正则梳理>常用正则梳理
+<i class="fa fa-chevron-right"></i></a></div></div><div id=wcomments></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>13</span>
+<span class=site-state-item-name>博客</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>5</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>10</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/duckjiangwei/ target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://www.zhihu.com/ target=_blank title=知乎><i class="fa fa-fw fa-globe"></i>
+知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>
+友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://juejin.cn/ title=掘金 target=_blank>掘金</a></li><li class=links-of-blogroll-item><a href=https://time.geekbang.org/ title=极客时间 target=_blank>极客时间</a></li><li class=links-of-blogroll-item><a href=https://segmentfault.com/ title=思否 target=_blank>思否</a></li><li class=links-of-blogroll-item><a href=https://www.oschina.net/ title=开源中国 target=_blank>开源中国</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>
+标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/elasticsearch>Elasticsearch
+<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
+<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80>计算机基础
+<sup>2</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/composer>Composer
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/git>Git
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/https>HTTPS
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/markdown>Markdown
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/mysql>Mysql
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/tcp>Tcp
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%AD%A3%E5%88%99>正则
+<sup>1</sup></a></li></ul></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span class=copyright-year>&copy; 2010 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=copyright-author>小记一下</span></div><div class=powered-info><span class=powered-by>Powered by - <a class=powered-link href=//gohugo.io target=_blank title=hugo>Hugo v0.100.2</a></span>
+<span class=separator-line>/</span>
+<span class=theme-info>Theme by - <a class=powered-link href=//github.com/elkan1788/hugo-theme-next target=_blank>NexT</a></span></div><div class=vistor-info><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<span class=site-uv><i class="fa fa-user"></i>
+<span class=busuanzi-value id=busuanzi_value_site_uv></span></span>
+<span class=separator-line>/</span>
+<span class=site-pv><i class="fa fa-eye"></i>
+<span class=busuanzi-value id=busuanzi_value_site_pv></span></span></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript src=//unpkg.com/jquery@2.1.4/dist/jquery.min.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript>function detectIE(){var e=window.navigator.userAgent,t=e.indexOf('MSIE '),n=e.indexOf('Trident/'),s=e.indexOf('Edge/');return t>0||n>0||s>0?-1:1}function getCntViewHeight(){var t=$('#content').height(),e=$(window).height(),n=t>e?t-e:$(document).height()-e;return n}function getScrollbarWidth(){var e=$('<div />').addClass('scrollbar-measure').prependTo('body'),t=e[0],n=t.offsetWidth-t.clientWidth;return e.remove(),n}function registerBackTop(){var t=50,e=$('.back-to-top');$(window).on('scroll',function(){e.toggleClass('back-to-top-on',window.pageYOffset>t);var s=$(window).scrollTop(),o=getCntViewHeight(),i=s/o,n=Math.round(i*100),a=n>100?100:n;$('#scrollpercent>span').html(a)}),e.on('click',function(){$("html,body").animate({scrollTop:0,screenLeft:0},800)})}function initScrollSpy(){var e='.post-toc',s=$(e),t='.active-current';s.on('activate.bs.scrollspy',function(){var t=$(e+' .active').last();n(),t.addClass('active-current')}).on('clear.bs.scrollspy',n),$('body').scrollspy({target:e});function n(){$(e+' '+t).removeClass(t.substring(1))}}function initAffix(){var e=$('.header-inner').height(),t=parseInt($('.footer').outerHeight(!0),10),n=e+10;$('.sidebar-inner').affix({offset:{top:n,bottom:t}})}function initTOCDimension(){$(window).on('resize',function(){e&&clearTimeout(e),e=setTimeout(function(){var e=document.body.clientHeight-100;updateTOCHeight(e)},0)}),updateTOCHeight(document.body.clientHeight-100);var e,t=getScrollbarWidth();$('.post-toc').css('width','calc(100% + '+t+'px)')}function updateTOCHeight(e){e=e||'auto',$('.post-toc').css('max-height',e)}$(function(){var e,t,n,s,o=$('.header-inner').height()+10;$('#sidebar').css({'margin-top':o}).show(),t=parseInt($('#sidebar').css('margin-top')),n=parseInt($('.sidebar-inner').css('height')),e=t+n,s=$('.content-wrap').height(),s<e&&$('.content-wrap').css('min-height',e),$('.site-nav-toggle').on('click',function(){var e=$('.site-nav'),o=$('.toggle'),t='site-nav-on',i='toggle-close',n=e.hasClass(t),a=n?'slideUp':'slideDown',s=n?'removeClass':'addClass';e.stop()[a]('normal',function(){e[s](t),o[s](i)})}),registerBackTop(),initAffix(),initTOCDimension(),$('.sidebar-nav-toc').click(function(){$(this).addClass('sidebar-nav-active'),$(this).next().removeClass('sidebar-nav-active'),$('.'+$(this).next().attr('data-target')).toggle(500),$('.'+$(this).attr('data-target')).toggle(500)}),$('.sidebar-nav-overview').click(function(){$(this).addClass('sidebar-nav-active'),$(this).prev().removeClass('sidebar-nav-active'),$('.'+$(this).prev().attr('data-target')).toggle(500),$('.'+$(this).attr('data-target')).toggle(500)})})</script><script src=//unpkg.com/imageviewer@1.1.0/dist/viewer.min.js></script>
+<script type=text/javascript>$(function(){$('.post-body').viewer()})</script><script type=text/javascript>const locale={placeholder:''};$(function(){detectIE()>0?$.getScript(document.location.protocol+'//unpkg.com/@waline/client@1.6.0/dist/Waline.min.js',function(){new Waline({el:'#wcomments',visitor:!0,emoji:[],wordLimit:'200',uploadImage:!1,locale,requiredMeta:['nick','mail'],serverURL:"Your WalineSerURL",lang:"zh-cn"})}):$('#wcomments').html('抱歉，Waline插件不支持IE或Edge，建议使用Chrome浏览器。')})</script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=Your%20AddthisId"></script>
+<script>(function(){var t,e=document.createElement('script'),n=window.location.protocol.split(':')[0];n==='https'?e.src='https://zz.bdstatic.com/linksubmit/push.js':e.src='http://push.zhanzhang.baidu.com/push.js',t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>
