@@ -18,7 +18,7 @@
 <span class=leancloud-view-count>3分钟</span></span>
 <span id=/post/php-exec-time/ class="leancloud_visitors post-visitor" data-flag-title="php 执行时间"><i class="fa fa-binoculars fa-fw"></i>
 <span class=post-meta-item-text>阅读次数：</span>
-<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><p><a name=iwDsD></a></p><h2 id=引入>引入</h2><p>接口一般都有「超时时间」。在<code>LNMP</code>环境中，打开<code>nginx.conf</code>，<code>php.ini</code>，<code>php-fpm.conf</code>，发现里面一堆和时间相关的配置项，哪些会影响到超时呢？实践出真知，决定对这些配置项做一些简单测试。</p><p>准备工作：</p><ol><li>php:7.4-fpm</li><li>nginx:1.21.1</li></ol><p>起 2 个容器后，对配置项稍微做了一点修改，使之满足接下来的测试。
+<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><hr><p><a name=iwDsD></a></p><h2 id=引入>引入</h2><p>接口一般都有「超时时间」。在<code>LNMP</code>环境中，打开<code>nginx.conf</code>，<code>php.ini</code>，<code>php-fpm.conf</code>，发现里面一堆和时间相关的配置项，哪些会影响到超时呢？实践出真知，决定对这些配置项做一些简单测试。</p><p>准备工作：</p><ol><li>php:7.4-fpm</li><li>nginx:1.21.1</li></ol><p>起 2 个容器后，对配置项稍微做了一点修改，使之满足接下来的测试。
 <a name=Lavfk></a></p><h2 id=测试过程>测试过程</h2><p><a name=d4T2x></a></p><h3 id=测试一>测试一</h3><p>我们知道<code>php.ini</code>文件有个控制脚本最大执行时间的配置：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#b8860b>max_execution_time</span> <span style=color:#666>=</span> <span style=color:#666>30</span>
 </span></span></code></pre></div><p><code>index.php</code>：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>sleep(<span style=color:#666>20</span>);
 </span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>echo</span> <span style=color:#666>1</span>;
@@ -52,24 +52,24 @@
 <a name=p8GkJ></a></li></ol><h2 id=参考>参考</h2><ol><li><a href=https://www.php.net/manual/zh/function.set-time-limit.php target=_blank rel=noopener>set_time_limit</a></li><li><a href=http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_read_timeout target=_blank rel=noopener>fastcgi_read_timeout</a></li><li><a href=https://ivanzz1001.github.io/records/post/nginx/2019/03/03/nginx-usage-part4 target=_blank rel=noopener>nginx超时时间</a></li></ol></div><footer class=post-footer><div class=post-tags><a href=/tags/php rel=tag title=php>#php#</a></div><div class=addthis_inline_share_toolbox></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/ rel=next title=缓存问题><i class="fa fa-chevron-left"></i> 缓存问题</a></div><div class="post-nav-prev post-nav-item"><a href=/post/%E6%B5%AE%E7%82%B9%E6%95%B0/ rel=prev title=浮点数丢失精度原因>浮点数丢失精度原因
 <i class="fa fa-chevron-right"></i></a></div></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>15</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>17</span>
 <span class=site-state-item-name>博客</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>6</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>13</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>14</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/duckjiangwei/ target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
 <span class=links-of-author-item><a href=https://www.zhihu.com/ target=_blank title=知乎><i class="fa fa-fw fa-globe"></i>
 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>
 友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://juejin.cn/ title=掘金 target=_blank>掘金</a></li><li class=links-of-blogroll-item><a href=https://time.geekbang.org/ title=极客时间 target=_blank>极客时间</a></li><li class=links-of-blogroll-item><a href=https://segmentfault.com/ title=思否 target=_blank>思否</a></li><li class=links-of-blogroll-item><a href=https://www.oschina.net/ title=开源中国 target=_blank>开源中国</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>
-标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/elasticsearch>Elasticsearch
+标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/redis>Redis
+<sup>4</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/elasticsearch>Elasticsearch
 <sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
-<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/redis>Redis
-<sup>2</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80>计算机基础
+<sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80>计算机基础
 <sup>2</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/composer>Composer
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/git>Git
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/https>HTTPS
+<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/lua>Lua
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/markdown>Markdown
 <sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/mysql>Mysql
-<sup>1</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/tcp>Tcp
 <sup>1</sup></a></li></ul></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span class=copyright-year>&copy; 2010 - 2022</span>
 <span class=with-love><i class="fa fa-heart"></i></span>
 <span class=copyright-author>小记一下</span></div><div class=powered-info><span class=powered-by>Powered by - <a class=powered-link href=//gohugo.io target=_blank title=hugo>Hugo v0.100.2</a></span>
