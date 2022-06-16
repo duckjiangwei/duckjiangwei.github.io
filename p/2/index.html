@@ -27,7 +27,19 @@
 <span class=leancloud-world-count>1155 字</span></span>
 <span class=post-readtime><i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>3分钟</span></span></div></header><div class=post-body itemprop=articleBody>MVCC 的实现 每条记录在更新的时候都会同时记录一条回滚操作。记录上的最新值，通过回滚操作，都可以得到前一个状态的值。 假设一个值从 1 被按顺序改成了 2</div><div class="post-more-link text-center"><a class=btn href=/post/mysql_mvcc/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/mysql%E6%8E%92%E5%BA%8F/ itemprop=url>mysql-排序</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
+<span class=leancloud-view-count>3分钟</span></span></div></header><div class=post-body itemprop=articleBody>MVCC 的实现 每条记录在更新的时候都会同时记录一条回滚操作。记录上的最新值，通过回滚操作，都可以得到前一个状态的值。 假设一个值从 1 被按顺序改成了 2</div><div class="post-more-link text-center"><a class=btn href=/post/mysql_mvcc/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/mysql-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%9D%91/ itemprop=url>MySQL:隐式转换的坑</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2021-04-08">2021-04-08</time></span>
+<span class=post-category><i class="fa fa-folder-o fa-fw"></i>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a class=post-category-a href=/categories/%E6%95%B0%E6%8D%AE%E5%BA%93 itemprop=url rel=index><span itemprop=name>数据库</span></a>
+&nbsp;</span></span>
+<span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
+<span class=post-meta-item-text>字数：</span>
+<span class=leancloud-world-count>812 字</span></span>
+<span class=post-readtime><i class="fa fa-eye fa-fw"></i>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-view-count>2分钟</span></span></div></header><div class=post-body itemprop=articleBody>隐式类型转换 首先建表如下，注意字段的类型： mysql> CREATE TABLE `tradelog` ( `id` int(11) NOT NULL, `tradeid` varchar(32) DEFAULT NULL, `operator` int(11) DEFAULT NULL, `t_modified` datetime DEFAULT NULL, PRIMARY KEY (`id`), KEY `tradeid` (`tradeid`), KEY `t_modified` (`t_modified`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 现有查询如下： mysql> select * from tradelog where tradeid=110717; explain</div><div class="post-more-link text-center"><a class=btn href=/post/mysql-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%9D%91/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/mysql%E6%8E%92%E5%BA%8F/ itemprop=url>mysql-排序</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2021-03-25">2021-03-25</time></span>
 <span class=post-category><i class="fa fa-folder-o fa-fw"></i>
@@ -51,19 +63,7 @@
 <span class=leancloud-world-count>965 字</span></span>
 <span class=post-readtime><i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>2分钟</span></span></div></header><div class=post-body itemprop=articleBody>为什么需要并发控制 并发访问控制对应的操作主要是 数据修改操作。当客户端需要修改数据时，基本流程分成两步： 客户端先把数据读取到本地，在本地进行修</div><div class="post-more-link text-center"><a class=btn href=/post/redis-%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/redis%E6%89%A9%E5%AE%B9/ itemprop=url>redis 扩容</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2021-01-10">2021-01-10</time></span>
-<span class=post-category><i class="fa fa-folder-o fa-fw"></i>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a class=post-category-a href=/categories/redis itemprop=url rel=index><span itemprop=name>redis</span></a>
-&nbsp;</span></span>
-<span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
-<span class=post-meta-item-text>字数：</span>
-<span class=leancloud-world-count>1460 字</span></span>
-<span class=post-readtime><i class="fa fa-eye fa-fw"></i>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>3分钟</span></span></div></header><div class=post-body itemprop=articleBody>随着数据的增加，需要对 redis 服务进行扩展：横向扩展，纵向扩展 纵向扩展 升级单个 Redis 实例的资源配置，包括增加内存容量、增加磁盘容量、使用更高配置的 CP</div><div class="post-more-link text-center"><a class=btn href=/post/redis%E6%89%A9%E5%AE%B9/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-view-count>2分钟</span></span></div></header><div class=post-body itemprop=articleBody>为什么需要并发控制 并发访问控制对应的操作主要是 数据修改操作。当客户端需要修改数据时，基本流程分成两步： 客户端先把数据读取到本地，在本地进行修</div><div class="post-more-link text-center"><a class=btn href=/post/redis-%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/>1</a>
 <span class="page-number current">2</span>
 <a class=page-number href=/p/3/>3</a>
@@ -71,7 +71,7 @@
 <a class=page-number href=/p/5/>5</a>
 <a class="extend next" rel=next href=/p/3/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>21</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>22</span>
 <span class=site-state-item-name>博客</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>7</span>
 <span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>16</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
@@ -81,7 +81,7 @@ GitHub</a></span>
 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>
 友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://juejin.cn/ title=掘金 target=_blank>掘金</a></li><li class=links-of-blogroll-item><a href=https://time.geekbang.org/ title=极客时间 target=_blank>极客时间</a></li><li class=links-of-blogroll-item><a href=https://segmentfault.com/ title=思否 target=_blank>思否</a></li><li class=links-of-blogroll-item><a href=https://www.oschina.net/ title=开源中国 target=_blank>开源中国</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>
 标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/mysql>Mysql
-<sup>4</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/redis>Redis
+<sup>5</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/redis>Redis
 <sup>4</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/elasticsearch>Elasticsearch
 <sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/php>Php
 <sup>3</sup></a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80>计算机基础
