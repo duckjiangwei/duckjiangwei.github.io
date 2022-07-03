@@ -12,14 +12,13 @@
 &nbsp;</span></span>
 <span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
 <span class=post-meta-item-text>字数：</span>
-<span class=leancloud-world-count>1421 字</span></span>
+<span class=leancloud-world-count>1999 字</span></span>
 <span class=post-readtime><i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>3分钟</span></span>
+<span class=leancloud-view-count>4分钟</span></span>
 <span id=/post/go%E6%98%93%E9%94%99%E7%82%B9%E6%80%BB%E7%BB%93/ class="leancloud_visitors post-visitor" data-flag-title="Go 易错点总结"><i class="fa fa-binoculars fa-fw"></i>
 <span class=post-meta-item-text>阅读次数：</span>
 <span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><hr><p>Go 代码中有很多易错点，稍微不注意就会踩坑，输出期望之外的结果。
-(持续更新)
 <a name=UpA2S></a></p><h2 id=切片的坑>切片的坑</h2><p><a name=HGfJG></a></p><h3 id=切片扩容导致的问题>切片扩容导致的问题</h3><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>main</span>() {
 </span></span><span style=display:flex><span>    a <span style=color:#666>:=</span> [<span style=color:#666>3</span>]<span style=color:#0b0;font-weight:700>int</span>{<span style=color:#666>1</span>, <span style=color:#666>2</span>, <span style=color:#666>3</span>}
 </span></span><span style=display:flex><span>    sl <span style=color:#666>:=</span> a[:]
@@ -159,7 +158,84 @@
 </span></span><span style=display:flex><span><span style=color:#666>4</span>
 </span></span><span style=display:flex><span><span style=color:#666>4</span>
 </span></span><span style=display:flex><span><span style=color:#666>4</span>
-</span></span></code></pre></div></div><footer class=post-footer><div class=post-tags><a href=/tags/go rel=tag title=Go>#Go#</a></div><div class=addthis_inline_share_toolbox></div><div class=post-nav><div class="post-nav-next post-nav-item"></div><div class="post-nav-prev post-nav-item"><a href=/post/elasticsearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/ rel=prev title="Elasticsearch 知识梳理">Elasticsearch 知识梳理
+</span></span></code></pre></div><p><a name=W7LtB></a></p><h2 id=接口>接口</h2><p><a name=vuDhA></a></p><h3 id=nil-接口不等于-nil>nil 接口不等于 nil</h3><p>下面代码中，函数 returnsError 定义了一个 *MyError 类型的变量 p，初值为 nil。如果函数 bad 返回 false，returnsError 函数就会直接将 p（此时 p = nil）作为返回值返回给调用者，之后调用者会将 returnsError 函数的返回值（error 接口类型）与 nil 进行比较，并根据比较结果做出最终处理。</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>type</span> MyError <span style=color:#a2f;font-weight:700>struct</span> {
+</span></span><span style=display:flex><span>    <span style=color:#0b0;font-weight:700>error</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>var</span> ErrBad = MyError{
+</span></span><span style=display:flex><span>    <span style=color:#0b0;font-weight:700>error</span>: errors.<span style=color:#00a000>New</span>(<span style=color:#b44>&#34;bad things happened&#34;</span>),
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>bad</span>() <span style=color:#0b0;font-weight:700>bool</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>return</span> <span style=color:#a2f;font-weight:700>false</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>returnsError</span>() <span style=color:#0b0;font-weight:700>error</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>var</span> p <span style=color:#666>*</span>MyError = <span style=color:#a2f;font-weight:700>nil</span>
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>if</span> <span style=color:#00a000>bad</span>() {
+</span></span><span style=display:flex><span>        p = <span style=color:#666>&amp;</span>ErrBad
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>return</span> p
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>main</span>() {
+</span></span><span style=display:flex><span>    err <span style=color:#666>:=</span> <span style=color:#00a000>returnsError</span>()
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>if</span> err <span style=color:#666>!=</span> <span style=color:#a2f;font-weight:700>nil</span> {
+</span></span><span style=display:flex><span>        fmt.<span style=color:#00a000>Printf</span>(<span style=color:#b44>&#34;error occur: %+v\n&#34;</span>, err)
+</span></span><span style=display:flex><span>        <span style=color:#a2f;font-weight:700>return</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    fmt.<span style=color:#00a000>Println</span>(<span style=color:#b44>&#34;ok&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>如果是初学者，思路大概是这样的：p 为 nil，returnsError 返回 p，那么 main 函数中的 err 就等于 nil，于是程序输出 ok 后退出。<br>真实的运行结果，走到 if 里面去了：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>error occur: &lt;nil&gt;
+</span></span></code></pre></div><p>之所以出现这种情况，和接口类型变量在运行时的表示有关：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>// $GOROOT/src/runtime/runtime2.go
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>//非空接口
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span><span style=color:#a2f;font-weight:700>type</span> iface <span style=color:#a2f;font-weight:700>struct</span> {
+</span></span><span style=display:flex><span>    tab  <span style=color:#666>*</span>itab
+</span></span><span style=display:flex><span>    data unsafe.Pointer
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>//空接口
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span><span style=color:#a2f;font-weight:700>type</span> eface <span style=color:#a2f;font-weight:700>struct</span> {
+</span></span><span style=display:flex><span>    _type <span style=color:#666>*</span>_type
+</span></span><span style=display:flex><span>    data  unsafe.Pointer
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>这两个结构的共同点是：</p><ul><li>它们都有两个指针字段</li><li>第二个指针字段的功能相同，都是指向 <strong>当前赋值给该接口类型变量的动态类型变量的值</strong>。</li></ul><p>结合代码，一起来看下示意图：</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#a2f;font-weight:700>type</span> T <span style=color:#a2f;font-weight:700>struct</span> {
+</span></span><span style=display:flex><span>    n <span style=color:#0b0;font-weight:700>int</span>
+</span></span><span style=display:flex><span>    s <span style=color:#0b0;font-weight:700>string</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>var</span> t = T {
+</span></span><span style=display:flex><span>        n: <span style=color:#666>17</span>,
+</span></span><span style=display:flex><span>        s: <span style=color:#b44>&#34;hello, interface&#34;</span>,
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>var</span> ei <span style=color:#a2f;font-weight:700>interface</span>{} = t <span style=color:#080;font-style:italic>// Go运行时使用eface结构表示ei
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>}
+</span></span></code></pre></div><p>ei 是一个空接口，在 Go 运行时的表示是这样的：<br><img src=//duckjiangwei.github.io/img/php/63.png alt=screenshot.png></p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#a2f;font-weight:700>type</span> T <span style=color:#a2f;font-weight:700>struct</span> {
+</span></span><span style=display:flex><span>    n <span style=color:#0b0;font-weight:700>int</span>
+</span></span><span style=display:flex><span>    s <span style=color:#0b0;font-weight:700>string</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> (T) <span style=color:#00a000>M1</span>() {}
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> (T) <span style=color:#00a000>M2</span>() {}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>type</span> NonEmptyInterface <span style=color:#a2f;font-weight:700>interface</span> {
+</span></span><span style=display:flex><span>    <span style=color:#00a000>M1</span>()
+</span></span><span style=display:flex><span>    <span style=color:#00a000>M2</span>()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a2f;font-weight:700>func</span> <span style=color:#00a000>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>var</span> t = T{
+</span></span><span style=display:flex><span>        n: <span style=color:#666>18</span>,
+</span></span><span style=display:flex><span>        s: <span style=color:#b44>&#34;hello, interface&#34;</span>,
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#a2f;font-weight:700>var</span> i NonEmptyInterface = t
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>i 是一个非空接口，在 Go 运行时的表示是这样的：<br><img src=//duckjiangwei.github.io/img/php/64.png alt=screenshot.png></p><p>至此，你应该明白为什么 <strong>nil 接口不等于 nil</strong>了，它们在运行时的结构完全不同的。</p></div><footer class=post-footer><div class=post-tags><a href=/tags/go rel=tag title=Go>#Go#</a></div><div class=addthis_inline_share_toolbox></div><div class=post-nav><div class="post-nav-next post-nav-item"></div><div class="post-nav-prev post-nav-item"><a href=/post/elasticsearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/ rel=prev title="Elasticsearch 知识梳理">Elasticsearch 知识梳理
 <i class="fa fa-chevron-right"></i></a></div></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/avatar.png alt=丸子><p class=site-author-name itemprop=name>丸子</p><p class="site-description motion-element" itemprop=description>平凡而不平庸</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>23</span>

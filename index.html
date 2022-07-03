@@ -12,10 +12,10 @@
 &nbsp;</span></span>
 <span class=post-wordcount><i class="fa fa-file-word-o fa-fw"></i>
 <span class=post-meta-item-text>字数：</span>
-<span class=leancloud-world-count>1421 字</span></span>
+<span class=leancloud-world-count>1999 字</span></span>
 <span class=post-readtime><i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>3分钟</span></span></div></header><div class=post-body itemprop=articleBody>Go 代码中有很多易错点，稍微不注意就会踩坑，输出期望之外的结果。 (持续更新) 切片的坑 切片扩容导致的问题 func main() { a := [3]int{1, 2, 3} sl := a[:] println(sl[0]) println(cap(sl)) sl = append(sl, 4) sl[0] = 11</div><div class="post-more-link text-center"><a class=btn href=/post/go%E6%98%93%E9%94%99%E7%82%B9%E6%80%BB%E7%BB%93/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/elasticsearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/ itemprop=url>Elasticsearch 知识梳理</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
+<span class=leancloud-view-count>4分钟</span></span></div></header><div class=post-body itemprop=articleBody>Go 代码中有很多易错点，稍微不注意就会踩坑，输出期望之外的结果。 切片的坑 切片扩容导致的问题 func main() { a := [3]int{1, 2, 3} sl := a[:] println(sl[0]) println(cap(sl)) sl = append(sl, 4) sl[0] = 11 println(a[0]) println(cap(sl)) } 输出的</div><div class="post-more-link text-center"><a class=btn href=/post/go%E6%98%93%E9%94%99%E7%82%B9%E6%80%BB%E7%BB%93/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=/post/elasticsearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/ itemprop=url>Elasticsearch 知识梳理</a></h1><div class=post-meta><span class=post-pushdate><i class="fa fa-calendar-o fa-fw"></i>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2022-06-11">2022-06-11</time></span>
 <span class=post-category><i class="fa fa-folder-o fa-fw"></i>
